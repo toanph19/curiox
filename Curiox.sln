@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.421
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Curiox.Web", "Curiox.Web\Curiox.Web.csproj", "{F748C8CF-0360-4167-967A-2655446F48A9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Curiox.Data", "Curiox.Data\Curiox.Data.csproj", "{2AFE3258-4230-4691-96CE-83E86B37779D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{F748C8CF-0360-4167-967A-2655446F48A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F748C8CF-0360-4167-967A-2655446F48A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F748C8CF-0360-4167-967A-2655446F48A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AFE3258-4230-4691-96CE-83E86B37779D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AFE3258-4230-4691-96CE-83E86B37779D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AFE3258-4230-4691-96CE-83E86B37779D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AFE3258-4230-4691-96CE-83E86B37779D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
