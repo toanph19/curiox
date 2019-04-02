@@ -7,6 +7,6 @@ namespace Curiox.Data.Repositories
 {
     public class BaseRepo
     {
-        protected string connString = "Server=localhost;Port=5432;Username=postgres;Password=1;Database=QLKHDB";
+        protected string connString = "Server=localhost;Port=5432;Username=testcn;Password=1;Database=QLKH";
     }
 }
