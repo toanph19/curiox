@@ -6,15 +6,22 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Curiox.Web.Models;
 using Curiox.Data.Repositories;
+using Curiox.Data;
+using Curiox.Data.Context;
+using Curiox.Data.Entities;
 
 namespace Curiox.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private UserRepo userRepo = new UserRepo();
+
         public IActionResult Index()
         {
-            string items = new UserRepo().GetUser(0);
-            ViewData["Items"] = items;
+            var users = userRepo.GetUsers();
+
+            var user = users.First();
+            ViewData["User"] = $"{user.Id} {user.Fullname}";
             return View();
         }
 

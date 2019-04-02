@@ -1,63 +1,41 @@
-﻿using Npgsql;
+﻿using Curiox.Data.Context;
+using Curiox.Data.Entities;
+using Microsoft.EntityFrameworkCore;
+using Npgsql;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Curiox.Data.Repositories
 {
-    public class UserRepo : BaseRepo
+    public class UserRepo : BaseRepo, IUserRepo
     {
-        public string GetUser(int userId)
+        public IList<User> GetUsers()
         {
-            string result = string.Empty;
+            return Db.User.ToList();
+        }
 
-            using (var conn = new NpgsqlConnection(connString))
-            {
-                conn.Open();
-                //add new row to database
-               /*using (var cmd = new NpgsqlCommand())
-                {
-                    cmd.Connection = conn;
-                    cmd.CommandText = "INSERT INTO \"DeTai\" VALUES (@DT,@tenDT,@Cap,@KinhPhi)";
-                    cmd.Parameters.AddWithValue("DT", "DT05");
-                    cmd.Parameters.AddWithValue("tenDT", "Test");
-                    cmd.Parameters.AddWithValue("Cap", "Truong");
-                    cmd.Parameters.AddWithValue("KinhPhi", 20000);
-                    cmd.ExecuteNonQuery();
-                }*/
+        public User GetUser(int id)
+        {
+            return Db.User.Find(id);
+        }
 
-                //update database
-                /*using (var cmd = new NpgsqlCommand())
-                {
-                    cmd.Connection = conn;
-                    cmd.CommandText = "UPDATE \"DeTai\" SET \"TenDT\" = @tenDt WHERE \"DT#\" = @DT";
-                    cmd.Parameters.AddWithValue("DT", "DT05");
-                    cmd.Parameters.AddWithValue("tenDT", "newTenDT");
-                    cmd.ExecuteNonQuery();
-                }*/
-                //delete from table
-                /*using (var cmd = new NpgsqlCommand())
-                {
-                    cmd.Connection = conn;
-                    cmd.CommandText = "DELETE FROM \"DeTai\" WHERE \"DT#\" = @DT";
-                    cmd.Parameters.AddWithValue("DT", "DT05");
-                    cmd.ExecuteNonQuery();
-                }*/
+        public void Insert(User user)
+        {
+            throw new NotImplementedException();
+        }
 
-                // Retrieve all rows
-                using (var cmd = new NpgsqlCommand("SELECT \"TenDT\" FROM \"DeTai\"", conn))
-                {
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                            result += reader.GetString(0);
-                    }
-                }
-            }
+        public void Update(User user)
+        {
+            Db.User.Attach(user);
+            Db.Entry(user).State = EntityState.Modified;
+            Db.SaveChanges();
+        }
 
-
-
-            return result;
+        public void Delete(User user)
+        {
+            throw new NotImplementedException();
         }
     }
 }

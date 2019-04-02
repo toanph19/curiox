@@ -1,4 +1,5 @@
-﻿using Npgsql;
+﻿using Curiox.Data.Context;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,6 +8,11 @@ namespace Curiox.Data.Repositories
 {
     public class BaseRepo
     {
-        protected string connString = "Server=localhost;Port=5432;Username=testcn;Password=1;Database=QLKH";
+        protected CurioxContext Db { get; set; }
+
+        public BaseRepo()
+        {
+            Db = new CurioxContext();
+        }
     }
 }

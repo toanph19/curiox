@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace Curiox.Data.Entities
 {
-    class Category
+    public partial class Category
     {
-        [Key]
-        [Required]
+        public Category()
+        {
+            Question = new HashSet<Question>();
+        }
+
+        public string Name { get; set; }
         public int Id { get; set; }
 
-        [StringLength(30)]
-        public String Name { get; set; }
+        public virtual ICollection<Question> Question { get; set; }
     }
 }
