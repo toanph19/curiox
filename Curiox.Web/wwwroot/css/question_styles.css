@@ -1,4 +1,8 @@
-﻿.navbar {
+﻿textarea{
+    resize: none;
+}
+
+.navbar {
     border-radius: 0;
 }
 
@@ -40,7 +44,7 @@
     display: inline-block;
     position: relative;
     width: 100%;
-    margin-bottom: 0px;
+    margin-bottom: 0;
     padding: 2px;
 }
 
