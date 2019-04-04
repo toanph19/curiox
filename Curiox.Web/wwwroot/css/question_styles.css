@@ -1,4 +1,8 @@
-﻿.navbar {
+﻿textarea{
+    resize: none;
+}
+
+.navbar {
     border-radius: 0;
 }
 
