@@ -1,5 +1,4 @@
 ﻿body {
-
 }
 
 ul li {
@@ -9,12 +8,14 @@ ul li {
 }
 
 .main-nav {
-    position: absolute;
+    position: fixed;
+    left: 100px;
     background-color: #e1e1e1;
     width: 230px;
     right: auto;
-    left: 0px;
-    /*top: 66px;*/
+    height: 100%;
+    /* left: 0px; */
+    /* top: 66px; */
     margin: 0px;
     /*height: -moz-calc(100% - 66px);*/
     /*height: -webkit-calc(100% - 66px);*/
@@ -23,44 +24,48 @@ ul li {
     /*border-right: 1px solid #ccc;*/
 }
 
-.main-nav .menu-parent {
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    margin: 0;
-}
+    .main-nav .menu-parent {
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+    }
 
-.main-nav ul {
-    height: 100%;
-    margin-bottom: 0px;
-    margin-right: 0px;
-    max-height: none;
-    list-style-type: none;
-    padding: 0;
-}
+    .main-nav ul {
+        height: 100%;
+        margin-bottom: 0px;
+        margin-right: 0px;
+        max-height: none;
+        list-style-type: none;
+        padding: 0;
+    }
 
-.main-nav .menu-parent li {
-    list-style-type: none;
-    width: 100%;
-    height: auto;
-    background-color: #e1e1e1;
-    border: none;
-    padding: 15px 10px;
-    font-size: 14px;
-}
+    .main-nav .menu-parent li {
+        list-style-type: none;
+        width: 100%;
+        height: auto;
+        background-color: #e1e1e1;
+        border: none;
+        padding: 15px 10px;
+        font-size: 14px;
+    }
 
-.main-nav .menu-parent li a, .menu-parent li .group-class {
-    display: flex;
-    width: 100%;
-    height: 25px;
-    text-decoration: none;
-    color: #666;
-    transition: all .2s;
-}
+        .main-nav .menu-parent li a, .menu-parent li .group-class {
+            display: flex;
+            width: 100%;
+            height: 25px;
+            text-decoration: none;
+            color: #666;
+            transition: all .2s;
+        }
 
 .nav-item {
     width: 100%;
 }
+
+    .nav-item .icon-size {
+        font-size: 14px;
+    }
 
 .main-nav .menu-parent li a .icon-nav {
     padding-right: 10px;
@@ -83,7 +88,6 @@ ul li {
 }
 
 .label-item {
-
 }
 
 .box-user {
@@ -91,14 +95,11 @@ ul li {
     border: 1px solid blue;
 }
 
-.news-main{
-
+.news-main {
 }
 
-.news-main-parent{
-
+.news-main-parent {
 }
 
-.news-main-item{
-
+.news-main-item {
 }
