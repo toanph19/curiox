@@ -1,6 +1,85 @@
 ﻿@{
     ViewData["Title"] = "News";
 }
-<h2>@ViewData["Title"]</h2>
+@*<h2>@ViewData["Title"]</h2>*@
 
-<div>test</div>
+<link href="~/css/news.css" rel="stylesheet" />
+
+<div class="body" style="width: 100%">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" style="background-color: antiquewhite; height: 100%;">
+                <div class="news-category main-nav">
+                    <ul class="menu-parent">
+                        <li class="nav-item">
+                            <a href="#">
+                                <div class="icon-nav">
+                                    <i class="material-icons">Ic</i>
+                                </div>
+                                <div class="label-item">Category1</div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#">
+                                <div class="icon-nav">
+                                    <i class="material-icons"></i>
+                                </div>
+                                <div class="label-item">Category2</div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#">
+                                <div class="icon-nav">
+                                    <i class="material-icons"></i>
+                                </div>
+                                <div class="label-item">Category3</div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#">
+                                <div class="icon-nav">
+                                    <i class="material-icons"></i>
+                                </div>
+                                <div class="label-item">Category4</div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>  @*end news-category*@
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="background-color: red; height: 100%;">
+                <div class="box-user">
+                    <div class="box-user-detail">
+                        Nguyen Thanh
+                    </div>
+                    <div class="your-question">
+                        What is your question or link?
+                    </div>
+                </div>
+                 <div class="news-main">
+                    <ul class="news-main-parent">
+                        <li class="news-main-item">
+                            <div class="question-title">
+                                <a class="question-link" href="#">
+                                    If gambling is all probability, why aren't mathematicians the richest people?
+                                </a>
+                            </div>
+                            <div class="answer-body">
+                                Top bracket now is 37%. I’m not there; I’m in the 35% bracket. But I’m within striking distance. (Be sure you understand the concept of marginal rates; a clear explanation can be found at
+                            </div>
+                            <div class="icon-action-bar">
+                                <div class="action-bar-inner">
+
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>  @*end news-category*@
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" style="background-color: yellow; height: 100%;">
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
