@@ -26,7 +26,7 @@ namespace Curiox.Data.Context
             if (!optionsBuilder.IsConfigured)
             {
 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Username=postgres;Password=1;Database=Curiox");
+                optionsBuilder.UseNpgsql("Host=balarama.db.elephantsql.com;Port=5432;Username=yjyxllgv;Password=e6zSkPsYnr4-i-WoBYF9pjEaAhYAXn-X;Database=yjyxllgv");
             }
         }
 
