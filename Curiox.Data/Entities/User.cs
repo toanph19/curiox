@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Curiox.Data.Entities
 {
-    public partial class User
+    public partial class User : BaseEntity
     {
         public User()
         {
@@ -16,7 +16,6 @@ namespace Curiox.Data.Entities
         public string Password { get; set; }
         public string Description { get; set; }
         public string Username { get; set; }
-        public int Id { get; set; }
 
         public virtual ICollection<Answer> Answer { get; set; }
         public virtual ICollection<Question> Question { get; set; }

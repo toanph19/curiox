@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curiox.Web", "Curiox.Web\Cu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curiox.Data", "Curiox.Data\Curiox.Data.csproj", "{2AFE3258-4230-4691-96CE-83E86B37779D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "TestProject\TestProject.csproj", "{54CEEDD7-E49C-4620-B72C-DF9393E57B48}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{2AFE3258-4230-4691-96CE-83E86B37779D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2AFE3258-4230-4691-96CE-83E86B37779D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2AFE3258-4230-4691-96CE-83E86B37779D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{54CEEDD7-E49C-4620-B72C-DF9393E57B48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{54CEEDD7-E49C-4620-B72C-DF9393E57B48}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{54CEEDD7-E49C-4620-B72C-DF9393E57B48}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{54CEEDD7-E49C-4620-B72C-DF9393E57B48}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

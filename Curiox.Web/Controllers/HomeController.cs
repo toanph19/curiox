@@ -14,13 +14,14 @@ namespace Curiox.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private UserRepo userRepo = new UserRepo();
+        private IRepository<User> userRepo = new Repository<User>();
+        private IRepository<Question> questionRepo = new Repository<Question>();
 
         public IActionResult Index()
         {
-            var users = userRepo.GetUsers();
-
+            var users = userRepo.GetAll();
             var user = users.First();
+
             ViewData["User"] = $"{user.Id} {user.Fullname}";
             return View();
         }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Curiox.Data.Entities
 {
-    public partial class Question
+    public partial class Question : BaseEntity
     {
         public Question()
         {
@@ -15,7 +15,6 @@ namespace Curiox.Data.Entities
         public DateTime? DateUpdated { get; set; }
         public int? UserId { get; set; }
         public int? CategoryId { get; set; }
-        public int Id { get; set; }
 
         public virtual Category Category { get; set; }
         public virtual User User { get; set; }
