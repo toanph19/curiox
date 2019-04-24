@@ -16,14 +16,43 @@ namespace Curiox.Web.Controllers
     {
         private IRepository<User> userRepo = new Repository<User>();
         private IRepository<Question> questionRepo = new Repository<Question>();
-
+        private IRepository<Category> categoryRepo = new Repository<Category>();
+        private IRepository<Answer> answerRepo = new Repository<Answer>();
         public IActionResult Index()
         {
-            var users = userRepo.GetAll();
-            var user = users.First();
+            var users = userRepo.GetAll().ToList();
+            var questions = questionRepo.GetAll();
+            var categories = categoryRepo.GetAll().ToList();
+            var answers = answerRepo.GetAll().ToList();
+            List<QuestionViewModel> questionViews = new List<QuestionViewModel>();
+            foreach(var qs in questions)
+            {
+                foreach(var item in answers)
+                {
+                    if (item.QuestionId == qs.Id) qs.Answer.Add(item);
+                }
+                var questionView = new QuestionViewModel
+                {
+                    Title = qs.Title,
+                    DateCreated = qs.DateCreated,
+                    DateUpdated = qs.DateUpdated,
+                    UserName = users.Find(user => user.Id == qs.UserId).Username,
+                    CategoryName = categories.Find(cat => cat.Id == qs.CategoryId).Name
+                };
+                foreach (var item in qs.Answer)
+                {
+                    var ans = new AnswerViewModel
+                    {
+                        Content = item.Content,
+                        QuestionId = item.QuestionId,
+                        UserName = users.Find(user => user.Id == item.UserId).Username
+                    };
+                    questionView.Answer.Add(ans);
+                }
+                questionViews.Add(questionView);
+            }            
+            return View(questionViews);
 
-            ViewData["User"] = $"{user.Id} {user.Fullname}";
-            return View();
         }
 
         public IActionResult About()
