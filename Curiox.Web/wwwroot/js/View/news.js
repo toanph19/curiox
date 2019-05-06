@@ -1,9 +1,4 @@
 ﻿$(document).ready(function () {
-    //handle event submit question
-    $('#btnSubmitQuestion').on('click', function () {
-        alert('submit');
-    });
-
     //handle event click btn-answer
     $('.btn-answer').on('click', function () {
         alert('answer');

@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
     //check if already logged in
     //if logged in
-    if (false) {
+    if (localStorage.getItem("token") !== "" && localStorage.getItem("token") !== null) {
         let html = ''
             + '<li><a href="#"><span class="glyphicon glyphicon-user"></span>' + ' Nguyen Thanh' + '</a></li>'
             + '<button id="btnAddQuestion" class="btn btn-danger navbar-btn">Add Question</button>'
@@ -17,12 +17,12 @@
     }
 
     $('#btnAddQuestion').on('click', function () {
-        if (false) {
-            //verify if already logged in
-            alert('You must log in first!');
-            window.location.href = '/Home/About';
-        } else {
+        if (localStorage.getItem("token") !== "" && localStorage.getItem("token") !== null) {
             $('#question-box').dialog('open');
+        } else {
+            //verify if already logged in
+            CommonJS.showFailMsg('You must logged in first!');
+            window.location.href = '/Home/About';
         }
     });
 });

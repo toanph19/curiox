@@ -14,7 +14,7 @@
             id: 'btnSubmitQuestion',
             class: 'btn btn-primary',
             click: function () {
-
+                CommonJS.showSuccessMsg('Success!');
             }
         },
         {
