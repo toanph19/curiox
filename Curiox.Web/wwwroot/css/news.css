@@ -7,6 +7,56 @@ body {
     color: #000;
 }
 
+.ask-question {
+    font-size: 13px;
+    position: relative;
+    width: 100%;
+}
+
+textarea.selector_input {
+    position: relative;
+    box-sizing: border-box;
+    padding-right: 23px;
+    width: 100%;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 0;
+    color: #333;
+    line-height: 1.3;
+    border: 0;
+    box-shadow: none;
+    padding-bottom: 8px;
+    margin-top: 8px;
+    border-radius: 3px;
+    min-height: 27px;
+    background: #fff;
+    outline: 0;
+}
+
+.who-ask {
+    height: 40px;
+    width: 100%;
+    /* margin-bottom: 10px; */
+}
+
+span.question-box_user-name {
+    margin-left: 10px;
+    font-size: 17px;
+    position: absolute;
+    top: 9px;
+    /* left: 10px; */
+}
+
+span.question-box_avatar {
+    font-size: 25px;
+    line-height: 40px;
+}
+
+.question-box_wraper {
+    position: relative;
+    width: 100%;
+}
+
 .ask-by {
     font-style: italic;
 }
