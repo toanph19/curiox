@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace Curiox.Web.Models
 {
-    public class QuestionViewModel : BaseEntity
+    public class QuestionViewModel
     {
         public QuestionViewModel()
         {
             Answer = new HashSet<AnswerViewModel>();
         }
 
+        public int Id { get; set; }
         public string Title { get; set; }
         public DateTime? DateCreated { get; set; }
         public DateTime? DateUpdated { get; set; }
