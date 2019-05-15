@@ -18,63 +18,49 @@ namespace Curiox.Web.Controllers
         private IRepository<Question> questionRepo = new Repository<Question>();
         private IRepository<Category> categoryRepo = new Repository<Category>();
         private IRepository<Answer> answerRepo = new Repository<Answer>();
+
         public IActionResult Index()
         {
             var users = userRepo.GetAll().ToList();
-            var questions = questionRepo.GetAll();
+            var questions = questionRepo.GetAll().ToList();
             var categories = categoryRepo.GetAll().ToList();
             var answers = answerRepo.GetAll().ToList();
-            List<QuestionViewModel> questionViews = new List<QuestionViewModel>();
-            foreach(var qs in questions)
+
+            var questionViews = new List<IndexQuestionViewModel>();
+            foreach (var qs in questions)
             {
-                foreach(var item in answers)
+                var questionAnswers = answers.Where(a => a.QuestionId == qs.Id);
+                var firstAnswer = questionAnswers.FirstOrDefault();
+
+                AnswerViewModel answerView = null;
+                if (firstAnswer != null)
                 {
-                    if (item.QuestionId == qs.Id) qs.Answer.Add(item);
+                    answerView = new AnswerViewModel
+                    {
+                        Content = firstAnswer.Content,
+                        QuestionId = firstAnswer.QuestionId,
+                        UserName = users.Find(user => user.Id == firstAnswer.UserId).Username
+                    };
                 }
-                var questionView = new QuestionViewModel
+                
+                var questionView = new IndexQuestionViewModel
                 {
+                    Id = qs.Id,
                     Title = qs.Title,
                     DateCreated = qs.DateCreated,
                     DateUpdated = qs.DateUpdated,
-                    UserName = users.Find(user => user.Id == qs.UserId).Username,
-                    CategoryName = categories.Find(cat => cat.Id == qs.CategoryId).Name
+                    UserName = users.FirstOrDefault(user => user.Id == qs.UserId)?.Username,
+                    CategoryName = categories.FirstOrDefault(cat => cat.Id == qs.CategoryId)?.Name,
+                    FirstAnswer = answerView,
+                    AnswerCounts = questionAnswers.Count()
                 };
-                foreach (var item in qs.Answer)
-                {
-                    var ans = new AnswerViewModel
-                    {
-                        Content = item.Content,
-                        QuestionId = item.QuestionId,
-                        UserName = users.Find(user => user.Id == item.UserId).Username
-                    };
-                    questionView.Answer.Add(ans);
-                }
+
                 questionViews.Add(questionView);
-            }            
+            }
+
             return View(questionViews);
-
         }
 
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult News()
-        {
-            ViewData["Message"] = "News.";
-
-            return View();
-        }
 
         public IActionResult Error()
         {
@@ -86,9 +72,41 @@ namespace Curiox.Web.Controllers
             return View();
         }
 
-        public IActionResult Question()
+        public IActionResult Question(int id)
         {
-            return View();
+            var question = questionRepo.Get(id);
+
+            if (question == null)
+            {
+                return NotFound();
+            }
+
+            var users = userRepo.GetAll().ToList();
+            var categories = categoryRepo.GetAll().ToList();
+                        
+            var questionView = new QuestionViewModel
+            {
+                Title = question.Title,
+                DateCreated = question.DateCreated,
+                DateUpdated = question.DateUpdated,
+                UserName = users.Find(user => user.Id == question.UserId).Username,
+                CategoryName = categories.Find(cat => cat.Id == question.CategoryId).Name
+            };
+
+            var answers = answerRepo.GetAll(a => a.QuestionId == id).ToList();
+
+            foreach (var answer in answers)
+            {
+                var answerView = new AnswerViewModel
+                {
+                    Content = answer.Content,
+                    QuestionId = answer.QuestionId,
+                    UserName = users.Find(user => user.Id == answer.UserId).Username
+                };
+                questionView.Answer.Add(answerView);
+            }
+            
+            return View(questionView);
         }
     }
 }

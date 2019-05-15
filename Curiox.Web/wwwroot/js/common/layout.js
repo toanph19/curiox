@@ -22,7 +22,7 @@
         } else {
             //verify if already logged in
             CommonJS.showFailMsg('You must logged in first!');
-            window.location.href = '/Home/About';
+            window.location.href = '/Home/Login';
         }
     });
 });

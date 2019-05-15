@@ -29,11 +29,31 @@ namespace Curiox.Web.Controllers
             
             return View();
         }
+        
+        [HttpGet]
+        public JsonResult GetUser(string token)
+        {
+            var user = new User("Toan", "me@gmail.com", "123456");
+
+            return Json(user);
+        } 
+
+        [HttpGet]
+        public JsonResult GetAccessToken(string username, string password)
+        {
+            string accessToken = "SampleAccessToken";
+
+            return Json(accessToken);
+        }
+
 
         [HttpPost]
-        public IActionResult Register(string name, string email, string password)
+        public IActionResult Register(string username, string email, string password)
         {
-            throw new NotImplementedException();
+            var user = new User(username, email, password);
+            userRepo.Add(user);
+
+            return View();
         }
     }
 }

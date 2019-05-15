@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Curiox.Web.Utilities;
+using System;
 using System.Collections.Generic;
 
 namespace Curiox.Data.Entities
@@ -7,6 +8,16 @@ namespace Curiox.Data.Entities
     {
         public User()
         {
+            Answer = new HashSet<Answer>();
+            Question = new HashSet<Question>();
+        }
+
+        public User(string username, string email, string password)
+        {
+            Username = username;
+            Email = email;
+            Password = HashHelper.ComputeSha256Hash(password);
+
             Answer = new HashSet<Answer>();
             Question = new HashSet<Question>();
         }
