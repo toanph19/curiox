@@ -14,7 +14,16 @@
             id: 'btnSubmitQuestion',
             class: 'btn btn-primary',
             click: function () {
-                CommonJS.showSuccessMsg('Success!');
+                $.ajax({
+                    method: "GET",
+                    url: Curiox.Config.loginUrl,
+                    success: function (data, status, xhr) {
+                        CommonJS.showSuccessMsg('Success!');
+                    },
+                    error: function (err, stt, xhr) {
+                        window.location.href = "/";
+                    }
+                });
             }
         },
         {

@@ -116,7 +116,7 @@
                         @foreach (var questionView in Model)
                         {
                             <li class="news-main-item">
-                                <div class="question-title">
+                                <div question-id=@questionView.Id class="question-title">
                                     <a class="question-link" href="#">
                                         <h4>@questionView.Title</h4>
                                     </a>
