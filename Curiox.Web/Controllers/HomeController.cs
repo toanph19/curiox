@@ -89,8 +89,8 @@ namespace Curiox.Web.Controllers
                 Title = question.Title,
                 DateCreated = question.DateCreated,
                 DateUpdated = question.DateUpdated,
-                UserName = users.Find(user => user.Id == question.UserId).Username,
-                CategoryName = categories.Find(cat => cat.Id == question.CategoryId).Name
+                UserName = users.Find(user => user.Id == question.UserId)?.Username,
+                CategoryName = categories.Find(cat => cat.Id == question.CategoryId)?.Name
             };
 
             var answers = answerRepo.GetAll(a => a.QuestionId == id).ToList();
@@ -101,7 +101,7 @@ namespace Curiox.Web.Controllers
                 {
                     Content = answer.Content,
                     QuestionId = answer.QuestionId,
-                    UserName = users.Find(user => user.Id == answer.UserId).Username
+                    UserName = users.Find(user => user.Id == answer.UserId)?.Username
                 };
                 questionView.Answer.Add(answerView);
             }

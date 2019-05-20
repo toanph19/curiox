@@ -9,15 +9,21 @@ namespace Curiox.Data.Repositories
 {
     public class UserRepo : Repository<User>, IUserRepo
     {
-        public User Get(string username, string password)
+        public User Get(string email, string password)
         {
             var hashedPassword = HashHelper.ComputeSha256Hash(password);
-            var user = Db.User.FirstOrDefault(u => u.Username == username && u.Password == hashedPassword);
+            var user = Db.User.FirstOrDefault(u => u.Email == email && u.Password == hashedPassword);
 
             return user;
         }
 
-        
+        public User Get(string email)
+        {
+            var user = Db.User.FirstOrDefault(u => u.Email == email);
+
+            return user;
+        }
+
         public void Add(string username, string email, string password)
         {
             var hashedPassword = HashHelper.ComputeSha256Hash(password);

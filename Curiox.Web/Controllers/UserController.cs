@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Curiox.Data.Entities;
 using Curiox.Data.Repositories;
+using Curiox.Web.DTOs;
 using Curiox.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,7 +12,7 @@ namespace Curiox.Web.Controllers
 {
     public class UserController : Controller
     {
-        private IRepository<User> userRepo = new Repository<User>();
+        private UserRepo userRepo = new UserRepo();
 
         [HttpGet]
         public IActionResult Login()
@@ -19,41 +20,45 @@ namespace Curiox.Web.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult Login(LoginModel model)
+        [HttpPost("/Api/SignUp")]
+        public IActionResult Register([FromBody] UserRegisterDTO userDTO)
         {
-            if (!ModelState.IsValid)
-            {
-                return View();
-            }
-            
-            return View();
+            var user = new User(userDTO.Username, userDTO.Email, userDTO.Password);
+            userRepo.Add(user);
+
+            var message = "Success";
+
+            return Json(message);
         }
+
+        [HttpPost("/Api/Login")]
+        public IActionResult Login([FromBody] UserLoginDTO userDTO)
+        {
+            var user = userRepo.Get(userDTO.Email, userDTO.Password);
+            if (user != null)
+            {
+                return GetAccessToken(userDTO.Email, userDTO.Password);
+            }
+
+            return NotFound();
+        }
+
         
-        [HttpGet]
-        public JsonResult GetUser(string token)
+        public IActionResult GetAccessToken(string email, string password)
         {
-            var user = new User("Toan", "me@gmail.com", "123456");
-
-            return Json(user);
-        } 
-
-        [HttpGet]
-        public JsonResult GetAccessToken(string username, string password)
-        {
-            string accessToken = "SampleAccessToken";
+            // Note: currently access token is email
+            string accessToken = email;
 
             return Json(accessToken);
         }
-
-
-        [HttpPost]
-        public IActionResult Register(string username, string email, string password)
+        
+        public IActionResult GetUser(string token)
         {
-            var user = new User(username, email, password);
-            userRepo.Add(user);
+            // Note: currently access token is email
+            var email = token;
+            var user = userRepo.Get(email);
 
-            return View();
+            return Json(user);
         }
     }
 }
