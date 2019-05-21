@@ -9,5 +9,6 @@ namespace Curiox.Web.Models
     {
         public AnswerViewModel FirstAnswer { get; set; }
         public int AnswerCounts { get; set; }
+        public static int MaxAnswerDisplayLength { get; } = 400;
     }
 }

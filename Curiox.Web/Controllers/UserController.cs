@@ -43,7 +43,7 @@ namespace Curiox.Web.Controllers
             return NotFound();
         }
 
-        
+        [HttpGet]
         public IActionResult GetAccessToken(string email, string password)
         {
             // Note: currently access token is email
@@ -51,12 +51,18 @@ namespace Curiox.Web.Controllers
 
             return Json(accessToken);
         }
-        
+
+        [HttpGet]
         public IActionResult GetUser(string token)
         {
             // Note: currently access token is email
             var email = token;
             var user = userRepo.Get(email);
+
+            //if (user == null)
+            //{
+            //    return NotFound();
+            //}
 
             return Json(user);
         }

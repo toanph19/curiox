@@ -26,7 +26,15 @@ namespace Curiox.Web.Controllers
             var categories = categoryRepo.GetAll().ToList();
             var answers = answerRepo.GetAll().ToList();
 
-            var questionViews = new List<IndexQuestionViewModel>();
+            var viewModel = new IndexViewModel();
+
+            var categoryViews = categories.Select(c => new IndexCategoryViewModel
+            {
+                Id = c.Id,
+                Name = c.Name
+            });
+
+            var qaViews = new List<IndexQuestionViewModel>();
             foreach (var qs in questions)
             {
                 var questionAnswers = answers.Where(a => a.QuestionId == qs.Id);
@@ -37,13 +45,13 @@ namespace Curiox.Web.Controllers
                 {
                     answerView = new AnswerViewModel
                     {
-                        Content = firstAnswer.Content,
+                        Content = firstAnswer.Content.Substring(0, Math.Min(IndexQuestionViewModel.MaxAnswerDisplayLength, firstAnswer.Content.Length)),
                         QuestionId = firstAnswer.QuestionId,
                         UserName = users.Find(user => user.Id == firstAnswer.UserId).Username
                     };
                 }
                 
-                var questionView = new IndexQuestionViewModel
+                var qaView = new IndexQuestionViewModel
                 {
                     Id = qs.Id,
                     Title = qs.Title,
@@ -55,10 +63,13 @@ namespace Curiox.Web.Controllers
                     AnswerCounts = questionAnswers.Count()
                 };
 
-                questionViews.Add(questionView);
+                qaViews.Add(qaView);
             }
 
-            return View(questionViews);
+            viewModel.QuestionsAndAnswers = qaViews;
+            viewModel.Categories = categoryViews;
+
+            return View(viewModel);
         }
 
 

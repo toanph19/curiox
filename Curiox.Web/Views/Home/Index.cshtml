@@ -1,4 +1,4 @@
-﻿@model IEnumerable<IndexQuestionViewModel>
+﻿@model IndexViewModel
 
 @{
     ViewData["Title"] = "News";
@@ -17,86 +17,20 @@
             <div class="col-xs-0 col-sm-0 col-md-3 col-lg-3" style="background-color: antiquewhite; height: 100%;">
                 <div class="news-category main-nav">
                     <ul class="menu-parent">
-                        <li class="nav-item">
-                            <a href="#">
-                                <div class="icon-nav">
-                                    <i class="fas fa-rss-square icon-size"></i>
-                                </div>
-                                <div class="label-item">Newsfeed</div>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#">
-                                <div class="icon-nav">
-                                    <i class="fab fa-quora icon-size"></i>
-                                </div>
-                                <div class="label-item">Quora</div>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#">
-                                <div class="icon-nav">
-                                    <i class="fas fa-school icon-size"></i>
-                                </div>
-                                <div class="label-item">Education</div>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#">
-                                <div class="icon-nav">
-                                    <i class="fas fa-music icon-size"></i>
-                                </div>
-                                <div class="label-item">Music</div>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#">
-                                <div class="icon-nav">
-                                    <i class="fas fa-film icon-size"></i>
-                                </div>
-                                <div class="label-item">Film</div>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#">
-                                <div class="icon-nav">
-                                    <i class="fas fa-code icon-size"></i>
-                                </div>
-                                <div class="label-item">Programming</div>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#">
-                                <div class="icon-nav">
-                                    <i class="fas fa-code icon-size"></i>
-                                </div>
-                                <div class="label-item">Programming</div>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#">
-                                <div class="icon-nav">
-                                    <i class="fas fa-code icon-size"></i>
-                                </div>
-                                <div class="label-item">Programming</div>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#">
-                                <div class="icon-nav">
-                                    <i class="fas fa-ellipsis-h icon-size"></i>
-                                </div>
-                                <div class="label-item">Others</div>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#">
-                                <div class="icon-nav">
-                                    <i class="fas fa-bookmark icon-size"></i>
-                                </div>
-                                <div class="label-item">Bookmark</div>
-                            </a>
-                        </li>
+                        @foreach (var category in Model.Categories)
+                        {
+                            <li class="nav-item">
+                                <a href="#">
+                                    <div class="icon-nav">
+                                        @* Icons go here. However there need to be a place to store these icons first.*@
+                                        @*<i class="fas fa-rss-square icon-size"></i>*@
+                                    </div>
+                                    <div class="label-item">
+                                        @category.Name
+                                    </div>
+                                </a>
+                            </li>
+                        }
                     </ul>
                 </div>  @*end news-category*@
             </div>
@@ -113,7 +47,7 @@
                 
                 <div class="news-main">
                     <ul class="news-main-parent">
-                        @foreach (var questionView in Model)
+                        @foreach (var questionView in Model.QuestionsAndAnswers)
                         {
                             <li class="news-main-item">
                                 <div question-id=@questionView.Id class="question-title">
@@ -123,25 +57,25 @@
                                 </div>
                                 <div class="author-question">
                                     <span>By:</span>
-                                    <span class="ask-by">Hihi</span>
+                                    <span class="ask-by">@questionView.UserName</span>
                                     <span>Time: </span>
-                                    <span class="ask-time">April 1st 2019</span>
+                                    <span class="ask-time">@questionView.DateCreated</span>
                                 </div>
                                 <div class="answer-body">
                                     @questionView.FirstAnswer?.Content
-                                    <span>(<a href="#">more</a>)</span>
+                                    <span>(<a class="question-link" asp-controller="Home" asp-action="Question" asp-route-id="@questionView.Id">more</a>)</span>
                                 </div>
                                 <div class="icon-action-bar">
                                     <div class="action-bar-inner">
                                         <div class="action-btn btn-answer"><i class="fas fa-pen-square"></i><span>Answer</span></div>
-                                        <div class="action-btn btn-follow"><i class="fas fa-rss"></i><span>Follow</span></div>
+                                        @*<div class="action-btn btn-follow"><i class="fas fa-rss"></i><span>Follow</span></div>*@
                                         <div class="action-btn btn-upvote"><i class="far fa-thumbs-up"></i><span>Upvote</span></div>
                                         <div class="action-btn btn-downvote"><i class="far fa-thumbs-down"></i><span>Downvote</span></div>
-                                        <div class="social-network">
+                                        @*<div class="social-network">
                                             <i class="fab fa-js icon-social-network"></i>
                                             <i class="fab fa-python icon-social-network"></i>
                                             <i class="fab fa-java icon-social-network"></i>
-                                        </div>
+                                        </div>*@
                                     </div>
                                 </div>
                             </li> @*end news item*@
