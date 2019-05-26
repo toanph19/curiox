@@ -24,6 +24,14 @@ namespace Curiox.Data.Repositories
             return user;
         }
 
+        public User GetByToken(string token)
+        {
+            var email = token;
+            var user = Db.User.FirstOrDefault(u => u.Email == email);
+
+            return user;
+        }
+
         public void Add(string username, string email, string password)
         {
             var hashedPassword = HashHelper.ComputeSha256Hash(password);

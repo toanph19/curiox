@@ -37,21 +37,20 @@ namespace Curiox.Web.Controllers
             var user = userRepo.Get(userDTO.Email, userDTO.Password);
             if (user != null)
             {
-                return GetAccessToken(userDTO.Email, userDTO.Password);
+                string accessToken = userDTO.Email;
+
+                var token = new LoginResultDTO
+                {
+                    Token = accessToken,
+                    Username = user.Username
+                };
+
+                return Json(token);
             }
 
             return NotFound();
         }
-
-        [HttpGet]
-        public IActionResult GetAccessToken(string email, string password)
-        {
-            // Note: currently access token is email
-            string accessToken = email;
-
-            return Json(accessToken);
-        }
-
+        
         [HttpGet]
         public IActionResult GetUser(string token)
         {

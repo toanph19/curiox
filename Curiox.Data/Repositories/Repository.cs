@@ -50,5 +50,10 @@ namespace Curiox.Data.Repositories
             Db.Set<T>().Remove(entity);
             Db.SaveChanges();
         }
+
+        public T First(Expression<Func<T, bool>> predicate)
+        {
+            return Db.Set<T>().First(predicate);
+        }
     }
 }

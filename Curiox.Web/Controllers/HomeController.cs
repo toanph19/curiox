@@ -9,12 +9,13 @@ using Curiox.Data.Repositories;
 using Curiox.Data;
 using Curiox.Data.Context;
 using Curiox.Data.Entities;
+using Curiox.Web.DTOs;
 
 namespace Curiox.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private IRepository<User> userRepo = new Repository<User>();
+        private UserRepo userRepo = new UserRepo();
         private IRepository<Question> questionRepo = new Repository<Question>();
         private IRepository<Category> categoryRepo = new Repository<Category>();
         private IRepository<Answer> answerRepo = new Repository<Answer>();
@@ -118,6 +119,68 @@ namespace Curiox.Web.Controllers
             }
             
             return View(questionView);
+        }
+
+        [HttpPost("/Api/Question")]
+        public IActionResult PostQuestion([FromBody] PostQuestionDTO questionDTO)
+        {
+            var token = questionDTO.Token;
+            var user = userRepo.GetByToken(token);
+            if (user == null)
+            {
+                return BadRequest();
+            }
+
+            var category = categoryRepo.First(c => c.Name == questionDTO.Category);
+            if (category == null)
+            {
+                return BadRequest();
+            }
+
+            var question = new Question()
+            {
+                CategoryId = category.Id,
+                Title = questionDTO.Title,
+                UserId = user.Id,
+                DateCreated = DateTime.Now,
+
+            };
+            questionRepo.Add(question);
+
+            return CreatedAtAction("Index", null);
+        }
+
+        [HttpPost("/Api/Answer")]
+        public IActionResult PostAnswer([FromBody] PostAnswerDTo answerDTO)
+        {
+            var token = answerDTO.Token;
+            var user = userRepo.GetByToken(token);
+            if (user == null)
+            {
+                return BadRequest();
+            }
+
+            var answer = new Answer()
+            {
+                Content = answerDTO.Content,
+                UserId = user.Id,
+                QuestionId = answerDTO.QuestionId
+            };
+            answerRepo.Add(answer);
+
+            return CreatedAtAction(nameof(Question), answerDTO.QuestionId);
+        }
+
+        [HttpPost("/Api/Question/Upvote")]
+        public IActionResult UpvoteQuestion(int questionId, [FromBody] UserTokenDTO tokenDTO)
+        {
+            return CreatedAtAction("Index", null);
+        }
+
+        [HttpPost("/Api/Answer/Upvote")]
+        public IActionResult UpvoteAnswer(int answerId, [FromBody] UserTokenDTO tokenDTO)
+        {
+            return CreatedAtAction("Index", null);
         }
     }
 }

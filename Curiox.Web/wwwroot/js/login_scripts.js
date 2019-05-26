@@ -18,19 +18,20 @@ $(document).ready(function () {
         };
         
         $.ajax({
-            method: "POST",
-            url: MISA.Config.loginUrl + "/User/GetAccessToken?username=" + jsonObj.email + "&password=" + jsonObj.password,
+            method: "GET",
+            url: Curiox.Config.loginUrl + "Api/Login",
             contentType: "application/json",
             data: JSON.stringify(jsonObj),
             success: function (data, txtStatus, xhr) {
-                if (txtStatus == "success") {
+                if (txtStatus === "success") {
+                    debugger
                     localStorage.setItem("token", data.token);
                 }
                 CommonJS.showSuccessMsg("Login successfully!");
                 window.location.href = "/";
             },
             error: function () {
-                commonJS.showFailMsg("An error occured! Please try again!");
+                CommonJS.showFailMsg("An error occured! Please try again!");
             }
         });
     });
