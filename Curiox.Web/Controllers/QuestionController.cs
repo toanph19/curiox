@@ -15,6 +15,8 @@ namespace Curiox.Web.Controllers
         private IRepository<Question> questionRepo = new Repository<Question>();
         private IRepository<Category> categoryRepo = new Repository<Category>();
         private IRepository<Answer> answerRepo = new Repository<Answer>();
+        private IRepository<QuestionUpvote> questionUpvoteRepo = new Repository<QuestionUpvote>();
+        private IRepository<AnswerUpvote> answerUpvoteRepo = new Repository<AnswerUpvote>();
 
         [HttpPost("/Api/Question")]
         public IActionResult PostQuestion([FromBody] PostQuestionDTO questionDTO)
@@ -69,24 +71,56 @@ namespace Curiox.Web.Controllers
         [HttpGet("/Api/Question/Upvote")]
         public IActionResult GetQuestionUpvotes(int questionId)
         {
-            throw new NotImplementedException();
+            var upvotes = questionUpvoteRepo.GetAll(q => q.QuestionId == questionId);
+            
+            return Json(upvotes);
         }
 
         [HttpGet("/Api/Answer/Upvote")]
         public IActionResult GetAnswerUpvotes(int answerId)
         {
-            throw new NotImplementedException();
+            var upvotes = answerUpvoteRepo.GetAll(q => q.AnswerId == answerId);
+
+            return Json(upvotes);
         }
 
         [HttpPost("/Api/Question/Upvote")]
         public IActionResult UpvoteQuestion(int questionId, [FromBody] UserTokenDTO tokenDTO)
         {
+            var token = tokenDTO.Token;
+            var user = userRepo.GetByToken(token);
+            if (user == null)
+            {
+                return BadRequest();
+            }
+
+            var upvote = new QuestionUpvote()
+            {
+                QuestionId = questionId,
+                UserId = user.Id
+            };
+            questionUpvoteRepo.Add(upvote);
+
             return CreatedAtAction("Index", null);
         }
 
         [HttpPost("/Api/Answer/Upvote")]
         public IActionResult UpvoteAnswer(int answerId, [FromBody] UserTokenDTO tokenDTO)
         {
+            var token = tokenDTO.Token;
+            var user = userRepo.GetByToken(token);
+            if (user == null)
+            {
+                return BadRequest();
+            }
+
+            var upvote = new AnswerUpvote()
+            {
+                AnswerId = answerId,
+                UserId = user.Id
+            };
+            answerUpvoteRepo.Add(upvote);
+
             return CreatedAtAction("Index", null);
         }
 

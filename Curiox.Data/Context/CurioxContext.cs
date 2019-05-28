@@ -20,6 +20,8 @@ namespace Curiox.Data.Context
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<Question> Question { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<QuestionUpvote> QuestionUpvote { get; set; }
+        public virtual DbSet<AnswerUpvote> AnswerUpvote { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -147,6 +149,28 @@ namespace Curiox.Data.Context
                     .IsRequired()
                     .HasColumnName("username")
                     .HasMaxLength(30);
+            });
+
+            modelBuilder.Entity<QuestionUpvote>(entity =>
+            {
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .UseNpgsqlIdentityAlwaysColumn();
+                
+                entity.Property(e => e.QuestionId).HasColumnName("question_id");
+
+                entity.Property(e => e.UserId).HasColumnName("user_id");
+            });
+
+            modelBuilder.Entity<AnswerUpvote>(entity =>
+            {
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .UseNpgsqlIdentityAlwaysColumn();
+
+                entity.Property(e => e.AnswerId).HasColumnName("answer_id");
+
+                entity.Property(e => e.UserId).HasColumnName("user_id");
             });
         }
     }
