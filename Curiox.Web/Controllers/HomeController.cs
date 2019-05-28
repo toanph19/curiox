@@ -73,6 +73,67 @@ namespace Curiox.Web.Controllers
             return View(viewModel);
         }
 
+        [HttpGet("/Category/{category}")]
+        public IActionResult Category(string category)
+        {
+            var categories = categoryRepo.GetAll().ToList();
+            var categoryObj = categories.FirstOrDefault(c => c.Name == category);
+            if (categoryObj == null)
+            {
+                return BadRequest();
+            }
+            var categoryId = categoryObj.Id;
+
+            var users = userRepo.GetAll().ToList();
+            var questions = questionRepo.GetAll(q => q.CategoryId == categoryId).ToList();
+            var answers = answerRepo.GetAll().ToList();
+
+            var viewModel = new IndexViewModel();
+
+            var categoryViews = categories.Select(c => new IndexCategoryViewModel
+            {
+                Id = c.Id,
+                Name = c.Name
+            });
+
+            var qaViews = new List<IndexQuestionViewModel>();
+            foreach (var qs in questions)
+            {
+                var questionAnswers = answers.Where(a => a.QuestionId == qs.Id);
+                var firstAnswer = questionAnswers.FirstOrDefault();
+
+                AnswerViewModel answerView = null;
+                if (firstAnswer != null)
+                {
+                    answerView = new AnswerViewModel
+                    {
+                        Content = firstAnswer.Content.Substring(0, Math.Min(IndexQuestionViewModel.MaxAnswerDisplayLength, firstAnswer.Content.Length)),
+                        QuestionId = firstAnswer.QuestionId,
+                        UserName = users.Find(user => user.Id == firstAnswer.UserId).Username
+                    };
+                }
+
+                var qaView = new IndexQuestionViewModel
+                {
+                    Id = qs.Id,
+                    Title = qs.Title,
+                    DateCreated = qs.DateCreated,
+                    DateUpdated = qs.DateUpdated,
+                    UserName = users.FirstOrDefault(user => user.Id == qs.UserId)?.Username,
+                    CategoryName = categories.FirstOrDefault(cat => cat.Id == qs.CategoryId)?.Name,
+                    FirstAnswer = answerView,
+                    AnswerCounts = questionAnswers.Count()
+                };
+
+                qaViews.Add(qaView);
+            }
+
+            viewModel.QuestionsAndAnswers = qaViews;
+            viewModel.Categories = categoryViews;
+
+            return View(viewModel);
+        }
+
 
         public IActionResult Error()
         {
@@ -119,68 +180,6 @@ namespace Curiox.Web.Controllers
             }
             
             return View(questionView);
-        }
-
-        [HttpPost("/Api/Question")]
-        public IActionResult PostQuestion([FromBody] PostQuestionDTO questionDTO)
-        {
-            var token = questionDTO.Token;
-            var user = userRepo.GetByToken(token);
-            if (user == null)
-            {
-                return BadRequest();
-            }
-
-            var category = categoryRepo.First(c => c.Name == questionDTO.Category);
-            if (category == null)
-            {
-                return BadRequest();
-            }
-
-            var question = new Question()
-            {
-                CategoryId = category.Id,
-                Title = questionDTO.Title,
-                UserId = user.Id,
-                DateCreated = DateTime.Now,
-
-            };
-            questionRepo.Add(question);
-
-            return CreatedAtAction("Index", null);
-        }
-
-        [HttpPost("/Api/Answer")]
-        public IActionResult PostAnswer([FromBody] PostAnswerDTo answerDTO)
-        {
-            var token = answerDTO.Token;
-            var user = userRepo.GetByToken(token);
-            if (user == null)
-            {
-                return BadRequest();
-            }
-
-            var answer = new Answer()
-            {
-                Content = answerDTO.Content,
-                UserId = user.Id,
-                QuestionId = answerDTO.QuestionId
-            };
-            answerRepo.Add(answer);
-
-            return CreatedAtAction(nameof(Question), answerDTO.QuestionId);
-        }
-
-        [HttpPost("/Api/Question/Upvote")]
-        public IActionResult UpvoteQuestion(int questionId, [FromBody] UserTokenDTO tokenDTO)
-        {
-            return CreatedAtAction("Index", null);
-        }
-
-        [HttpPost("/Api/Answer/Upvote")]
-        public IActionResult UpvoteAnswer(int answerId, [FromBody] UserTokenDTO tokenDTO)
-        {
-            return CreatedAtAction("Index", null);
         }
     }
 }
