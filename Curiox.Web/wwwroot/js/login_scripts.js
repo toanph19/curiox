@@ -16,15 +16,14 @@ $(document).ready(function () {
             "email": $('#txtEmail').val(),
             "password": $('#txtPassword').val()
         };
-        
         $.ajax({
-            method: "GET",
-            url: Curiox.Config.loginUrl + "Api/Login",
+            method: "POST",
+            url: Curiox.Config.loginUrl + "/Api/Login",
             contentType: "application/json",
             data: JSON.stringify(jsonObj),
             success: function (data, txtStatus, xhr) {
                 if (txtStatus === "success") {
-                    debugger
+                    localStorage.setItem("user", data);
                     localStorage.setItem("token", data.token);
                 }
                 CommonJS.showSuccessMsg("Login successfully!");
@@ -53,7 +52,7 @@ $(document).ready(function () {
         };
         $.ajax({
             method: "POST",
-            url: MISA.Config.loginUrl + "/Api/SignUp",
+            url: Curiox.Config.loginUrl + "/Api/SignUp",
             contentType: "application/json",
             data: JSON.stringify(jsonObj),
             success: function (data, txtStatus, xhr) {

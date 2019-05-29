@@ -9,7 +9,13 @@
             success: function (data, status, xhr) {
                 let username = data.username;
                 let html = ''
-                    + '<li><a href="#"><span class="glyphicon glyphicon-user"></span>' +  '  ' + username  + '</a></li>'
+                    + '<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span>' + '  '
+                    + username
+                    +    '<span class="caret"></span></a>'
+                    +'<ul style="cursor: pointer;" class="dropdown-menu">'
+                    +   '<li ><a id="btnLogout">Logout</a></li>'
+                    +' </ul>'
+                    +'</li >'
                     + '<button id="btnAddQuestion" class="btn btn-danger navbar-btn">Add Question</button>'
                     + '';
                 $('#user-box').html(html);
@@ -35,5 +41,11 @@
             CommonJS.showFailMsg('You must logged in first!');
             window.location.href = '/Home/Login';
         }
+    });
+
+    $(document).on('click', '#btnLogout', function () {
+        localStorage.setItem("token", "");
+        localStorage.setItem("user", "");
+        window.location.href = "/";
     });
 });
