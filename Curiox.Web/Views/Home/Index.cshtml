@@ -95,11 +95,28 @@
             <div class="question-box_inner">
                 <div class="who-ask">
                     <span class="question-box_avatar"><i class="fas fa-user-circle"></i></span>
-                    <span class="question-box_user-name">Nguyen Thanh  <span>asked</span></span>
-
+                    <span class="question-box_user-name">Nguyen Thanh 1  <span>asked</span></span>
                 </div>
                 <div class="ask-question">
-                    <textarea class="selector_input" type="text" rows="1" title="Start your question with &quot;What&quot;, &quot;How&quot;, &quot;Why&quot;, etc." placeholder="Start your question with &quot;What&quot;, &quot;How&quot;, &quot;Why&quot;, etc." style="overflow: hidden; overflow-wrap: break-word; height: 31px;"></textarea>
+                    <form>
+                        <select id="selectCategory" class="form-control">
+                            <option>Select category</option>
+                            <option>Books</option>
+                            <option>Programming</option>
+                            <option>Science</option>
+                            <option>Technology</option>
+                            <option>Economics</option>
+                            <option>Electrical Engineering</option>
+                            <option>General</option>
+                        </select>
+                    </form>
+                    <div class="form-group">
+                        @*<textarea class="selector_input" type="text" rows="1" title="Start your question with &quot;What&quot;, &quot;How&quot;, &quot;Why&quot;, etc." placeholder="Start your question with &quot;What&quot;, &quot;How&quot;, &quot;Why&quot;, etc." style="overflow: hidden; overflow-wrap: break-word; height: 31px;"></textarea>*@
+                        <label style="margin-top: 6px;" for="title" >Title:</label>
+                        <input type="text" class="form-control" id="question-title" placeholder="Start your question with &quot;What&quot;, &quot;How&quot;, &quot;Why&quot;, etc.">
+                        <label style="margin-top: 6px;" for="content">Detail:</label>
+                        <textarea class="form-control" rows="3" id="question-content"></textarea>
+                    </div>
                 </div>
             </div>
         </div>

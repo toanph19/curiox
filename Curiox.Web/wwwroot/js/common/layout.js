@@ -33,7 +33,7 @@
         $('#user-box').html(html);
     }
 
-    $('#btnAddQuestion').on('click', function () {
+    $(document).on('click', '#btnAddQuestion', function () {
         if (localStorage.getItem("token") !== "" && localStorage.getItem("token") !== null) {
             $('#question-box').dialog('open');
         } else {

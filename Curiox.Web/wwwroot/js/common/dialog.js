@@ -4,9 +4,9 @@
     modal: true,
     resizable: false,
     width: 620,
-    height: 210,
+    height: 400,
     beforeClose: function (event) {
-        $('.selector_input').val('');
+        $('.form-control').val('');
     },
     buttons: [
         {
@@ -14,13 +14,24 @@
             id: 'btnSubmitQuestion',
             class: 'btn btn-primary',
             click: function () {
+                var jsonObj = {
+                    "category": $('#selectCategory').val(),
+                    "title": $('#question-title').val(),
+                    "content": $('#question-content').val(),
+                    "token": localStorage.getItem('token')
+                };
                 $.ajax({
-                    method: "GET",
-                    url: Curiox.Config.loginUrl,
+                    method: "POST",
+                    url: Curiox.Config.loginUrl + '/Api/Question',
+                    data: JSON.stringify(jsonObj),
+                    contentType: "application/json",
                     success: function (data, status, xhr) {
                         CommonJS.showSuccessMsg('Success!');
+                        $('#question-box').dialog('close');
                     },
                     error: function (err, stt, xhr) {
+                        CommonJS.showFailMsg('An error occured! Please try again!');
+                        $('#question-box').dialog('close');
                         window.location.href = "/";
                     }
                 });
