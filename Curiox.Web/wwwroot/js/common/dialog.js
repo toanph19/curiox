@@ -14,8 +14,12 @@
             id: 'btnSubmitQuestion',
             class: 'btn btn-primary',
             click: function () {
+                let category = $('#selectCategory').val();
+                if (category === 'Select category') {
+                    category = 'General';
+                }
                 var jsonObj = {
-                    "category": $('#selectCategory').val(),
+                    "category": category,
                     "title": $('#question-title').val(),
                     "content": $('#question-content').val(),
                     "token": localStorage.getItem('token')

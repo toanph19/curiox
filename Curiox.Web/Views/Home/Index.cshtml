@@ -38,10 +38,10 @@
                 <div class="box-user">
                     <div class="box-user-detail">
                         <i class="fas fa-user-circle icon-size" style="font-size: 18px;"></i>
-                        <span>Nguyen Thanh</span>
+                        <a style="cursor: pointer"><span id="username"></span></a>
                     </div>
                     <div class="your-question">
-                        <h4>What is your question or link?</h4>
+                        <h4 style="cursor: pointer"><a>What is your question?</a></h4>
                     </div>
                 </div>
                 
@@ -60,6 +60,10 @@
                                     <span class="ask-by">@questionView.UserName</span>
                                     <span>Time: </span>
                                     <span class="ask-time">@questionView.DateCreated</span>
+                                    <span class="question-category">
+                                        #Category
+                                    </span>
+                                    
                                 </div>
                                 <div class="answer-body">
                                     @questionView.FirstAnswer?.Content

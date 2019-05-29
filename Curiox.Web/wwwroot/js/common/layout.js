@@ -19,9 +19,12 @@
                     + '<button id="btnAddQuestion" class="btn btn-danger navbar-btn">Add Question</button>'
                     + '';
                 $('#user-box').html(html);
+                $('#username').html(username);
+                $('.question-box_user-name').html(username + ' asked');
             },
             error: function (err, stt, xhr) {
                 window.location.href = "/";
+                $('#username').html('Log in');
             }
         });
     } else {

@@ -7,6 +7,13 @@ body {
     color: #000;
 }
 
+span.question-category {
+    color: #0030e8;
+    cursor: pointer;
+    font-style: italic;
+    margin-left: 10px;
+}
+
 .ask-question {
     font-size: 13px;
     position: relative;
