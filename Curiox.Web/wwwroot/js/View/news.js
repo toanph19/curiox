@@ -2,27 +2,30 @@
     //handle event click btn-answer
     $('.btn-answer').on('click', function () {
         window.location.href = "/Home/Question";
-        //if (localStorage.getItem("token") !== "" && localStorage.getItem("token") !== null) {
-        //    let token = localStorage.getItem("token");
-        //    $.ajax({
-        //        method: "GET",
-        //        url: Curiox.Config.loginUrl,
-        //        success: function (data, status, xhr) {
-                    
-        //        },
-        //        error: function (err, stt, xhr) {
-        //            console.log(err);
-        //            CommonJS.showFailMsg('Something went wrong!');
-        //        }
-        //    });
-        //} else {
-        //    window.location.href = "/Home/Login";
-        //}
     });
 
     //handle event click btn-upvote
     $('.btn-upvote').on('click', function () {
-        alert('upvote');
+        let questionId = $(this).parents('.news-main-item').find('.question-title').attr('question-id');
+        var jsonObj = {
+            "token": localStorage.getItem('token'),
+        };
+        let thisUpvote = $(this).find('.nbUpvote');
+        $.ajax({
+            method: "POST",
+            url: Curiox.Config.loginUrl + "/Api/Question/Upvote?questionId=" + questionId,
+            contentType: "application/json",
+            data: JSON.stringify(jsonObj),
+            success: function (data, txtStatus, xhr) {
+                if (txtStatus === "success") {
+                    let nbUpvote = parseInt(thisUpvote.html());
+                    thisUpvote.html(++nbUpvote);
+                }
+            },
+            error: function () {
+                CommonJS.showFailMsg("An error occured! Please try again!");
+            }
+        });
     });
 
     //handle event click btn-downvote
