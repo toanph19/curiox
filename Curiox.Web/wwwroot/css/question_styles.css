@@ -66,6 +66,10 @@
     width: 100%;
 }
 
+.btn-upvote{
+    cursor: pointer;
+}
+
 @media(max-width: 600px) {
     #sidebar {
         display: none;

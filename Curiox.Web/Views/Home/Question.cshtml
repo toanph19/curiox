@@ -7,6 +7,9 @@
 
 
 @section StyleSheets {
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link href="~/css/lib/jquery-ui.css" rel="stylesheet" />
+    <link href="~/css/lib/bootstrap.css" rel="stylesheet" />
     <link href="~/css/question_styles.css" rel="stylesheet" />
 }
 <div class="row">
@@ -45,9 +48,10 @@
                     <p>
                         @answer.Content
                     </p>
+
                     <div class="utility">
                         <ul>
-                            <li><a href="#">Up Vote</a></li>
+                            <li><span class="action-btn btn-upvote"><i class="far fa-thumbs-up"></i><span class="nbUpvote">1000</span><span> Upvote</span></span></li>
                             <li><a href="#">Comment</a></li>
                             <li><a href="#">Share</a></li>
                         </ul>
@@ -68,9 +72,9 @@
                 </form>
             </div>
         </div>
-</div>
+    </div>
 
-@section Scripts {
+    @section Scripts {
 
-}
+    }
 
