@@ -71,9 +71,9 @@
                                 </div>
                                 <div class="icon-action-bar">
                                     <div class="action-bar-inner">
-                                        <div class="action-btn btn-answer"><i class="fas fa-pen-square"></i><span>Answer</span></div>
+                                        <a style="text-decoration: none;" asp-controller="Home" asp-action="Question" asp-route-id="@questionView.Id"><div class="action-btn btn-answer"><i class="fas fa-pen-square"></i><span>Answer</span></div></a> 
                                         @*<div class="action-btn btn-follow"><i class="fas fa-rss"></i><span>Follow</span></div>*@
-                                        <div class="action-btn btn-upvote"><i class="far fa-thumbs-up"></i><span class="nbUpvote">1000</span><span> Upvote</span></div>
+                                        <div style="color: #337ab7;" class="action-btn btn-upvote"><i class="far fa-thumbs-up"></i><span class="nbUpvote">1000</span><span> Upvote</span></div>
                                         @*<div class="action-btn btn-downvote"><i class="far fa-thumbs-down"></i><span>Downvote</span></div>*@
                                         @*<div class="social-network">
                                             <i class="fab fa-js icon-social-network"></i>
@@ -94,37 +94,7 @@
         </div>
     </div>
     @*end container*@
-    <div class="question-box" id="question-box">
-        <div class="question-box_wraper">
-            <div class="question-box_inner">
-                <div class="who-ask">
-                    <span class="question-box_avatar"><i class="fas fa-user-circle"></i></span>
-                    <span class="question-box_user-name">Nguyen Thanh <span>asked</span></span>
-                </div>
-                <div class="ask-question">
-                    <form>
-                        <select id="selectCategory" class="form-control">
-                            <option>Select category</option>
-                            <option>Books</option>
-                            <option>Programming</option>
-                            <option>Science</option>
-                            <option>Technology</option>
-                            <option>Economics</option>
-                            <option>Electrical Engineering</option>
-                            <option>General</option>
-                        </select>
-                    </form>
-                    <div class="form-group">
-                        @*<textarea class="selector_input" type="text" rows="1" title="Start your question with &quot;What&quot;, &quot;How&quot;, &quot;Why&quot;, etc." placeholder="Start your question with &quot;What&quot;, &quot;How&quot;, &quot;Why&quot;, etc." style="overflow: hidden; overflow-wrap: break-word; height: 31px;"></textarea>*@
-                        <label style="margin-top: 6px;" for="title" >Title:</label>
-                        <input type="text" class="form-control" id="question-title" placeholder="Start your question with &quot;What&quot;, &quot;How&quot;, &quot;Why&quot;, etc.">
-                        <label style="margin-top: 6px;" for="content">Detail:</label>
-                        <textarea class="form-control" rows="3" id="question-content"></textarea>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 </div>
 
 <script src="~/js/lib/jquery-3.4.1.js"></script>

@@ -19,7 +19,7 @@
                     + '<button id="btnAddQuestion" class="btn btn-danger navbar-btn">Add Question</button>'
                     + '';
                 $('#user-box').html(html);
-                $('#username').html(username);
+                //$('#username').html(username);
                 $('.question-box_user-name').html(username + ' asked');
             },
             error: function (err, stt, xhr) {
@@ -47,8 +47,8 @@
     });
 
     $(document).on('click', '#btnLogout', function () {
-        localStorage.setItem("token", "");
-        localStorage.setItem("user", "");
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
         window.location.href = "/";
     });
 });

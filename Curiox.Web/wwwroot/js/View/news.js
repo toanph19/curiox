@@ -28,6 +28,13 @@
         });
     });
 
+    if (localStorage.getItem("token") !== "" && localStorage.getItem("token") !== null) {
+        let user = JSON.parse(localStorage.getItem('user'));
+        $('#username').html(user);
+    } else {
+        $('#username').html('');
+    }
+
     //handle event click btn-downvote
     $('.btn-downvote').on('click', function () {
         alert('downvote');

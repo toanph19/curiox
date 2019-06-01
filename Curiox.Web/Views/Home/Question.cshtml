@@ -12,69 +12,75 @@
     <link href="~/css/lib/bootstrap.css" rel="stylesheet" />
     <link href="~/css/question_styles.css" rel="stylesheet" />
 }
-<div class="row">
-    <div id="main-section">
-        <div class="question-container page-header">
+    <div class="row">
+        <div id="main-section">
+            <div class="question-container page-header">
 
-            <!--Topic bar-->
-            <div class="topic-bar">
-                <div class="topic-tag">
-                    <a href="#">@Model.CategoryName</a>
+                <!--Topic bar-->
+                <div class="topic-bar">
+                    <div class="topic-tag">
+                        <a href="#">@Model.CategoryName</a>
+                    </div>
                 </div>
-            </div>
 
-            <!--Question content-->
-            <div class="question-content">
-                <div>
+                <!--Question content-->
+                <div class="question-content">
                     <div>
-                        <h1 class="question-content-text">Question: @Model.Title </h1>
-                        <div class="question-info">
-                            <div class="poster">
-                                <small>by <strong>@Model.UserName</strong> on @Model.DateCreated</small>
-                            </div>
+                        <div>
+                            <h1 class="question-content-text" question-id="@Model.Id">Question: @Model.Title </h1>
+                            <div class="question-info">
+                                <div class="poster">
+                                    <small>by <strong>@Model.UserName</strong> on @Model.DateCreated</small>
+                                </div>
 
-                            <h3><strong>@Model.Answer.Count() answers</strong></h3>
+                                <h3><strong>@Model.Answer.Count() answers</strong></h3>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            @foreach (var answer in Model.Answer)
-            {
-                <div class="page-header">
-                    <h3>Answer by<strong>  @answer.UserName </strong></h3>
-                    <div class="poster">
-                        <small>Posted on 30/03/2019</small>
-                    </div>
-                    <p>
-                        @answer.Content
-                    </p>
+                @foreach (var answer in Model.Answer)
+                {
+                    <div class="page-header">
+                        <h3>Answer by<strong>  @answer.UserName </strong></h3>
+                        <div class="poster">
+                            <small>Posted on 30/03/2019</small>
+                        </div>
+                        <p class="anwser-content" answer-id="1">
+                            @answer.Content
+                        </p>
 
-                    <div class="utility">
-                        <ul>
-                            <li><span class="action-btn btn-upvote"><i class="far fa-thumbs-up"></i><span class="nbUpvote">1000</span><span> Upvote</span></span></li>
-                            <li><a href="#">Comment</a></li>
-                            <li><a href="#">Share</a></li>
-                        </ul>
+                        <div class="utility">
+                            <ul>
+                                <li><span class="action-btn btn-upvote"><i class="far fa-thumbs-up"></i><span class="nbUpvote">1000</span><span> Upvote</span></span></li>
+                                <li><a href="#">Comment</a></li>
+                                <li><a href="#">Share</a></li>
+                            </ul>
+                        </div>
                     </div>
+                }
+                <!--Answer box-->
+                <hr>
+                <div class="form-container">
+                    <form action="/" method="post">
+                        <div class="form-group">
+                            <label><h3><strong>Your Answer</strong></h3></label>
+                            <textarea id="contentAnswer" class="form-control" placeholder="Enter your answer" rows="4"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" name="submit-answer-btn" value="Submit" id="btnSubmit" class="btn" />
+                        </div>
+                    </form>
                 </div>
-            }
-            <!--Answer box-->
-            <hr>
-            <div class="form-container">
-                <form action="/" method="post">
-                    <div class="form-group">
-                        <label><h3><strong>Your Answer</strong></h3></label>
-                        <textarea class="form-control" placeholder="Enter your answer" rows="4"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" name="submit-answer-btn" value="Submit" class="btn" />
-                    </div>
-                </form>
             </div>
         </div>
-    </div>
 
-    @section Scripts {
+        <script src="~/js/lib/jquery-3.4.1.js"></script>
+        <script src="~/js/View/config.js"></script>
+        <script src="~/js/common/common.js"></script>
+        <script src="~/js/common/layout.js"></script>
+        <script src="~/js/View/question.js"></script>
 
-    }
+        @section Scripts {
+
+        }
 

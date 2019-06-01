@@ -23,7 +23,8 @@ $(document).ready(function () {
             data: JSON.stringify(jsonObj),
             success: function (data, txtStatus, xhr) {
                 if (txtStatus === "success") {
-                    localStorage.setItem("user", data);
+                    localStorage.setItem("user", JSON.stringify(data.username));
+                    debugger
                     localStorage.setItem("token", data.token);
                 }
                 CommonJS.showSuccessMsg("Login successfully!");

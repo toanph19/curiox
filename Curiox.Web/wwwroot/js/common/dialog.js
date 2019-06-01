@@ -32,6 +32,7 @@
                     success: function (data, status, xhr) {
                         CommonJS.showSuccessMsg('Success!');
                         $('#question-box').dialog('close');
+                        window.location.href = '/';
                     },
                     error: function (err, stt, xhr) {
                         CommonJS.showFailMsg('An error occured! Please try again!');
