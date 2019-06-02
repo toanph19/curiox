@@ -60,10 +60,12 @@
                                     <span class="ask-by">@questionView.UserName</span>
                                     <span>Time: </span>
                                     <span class="ask-time">@questionView.DateCreated</span>
-                                    <span class="question-category">
-                                        #Category
-                                    </span>
+                                    @if (!string.IsNullOrWhiteSpace(@questionView.Category))
+                                    {
+                                        <span class="question-category">#@questionView.Category</span>                                        
+                                    }
                                     
+
                                 </div>
                                 <div class="answer-body">
                                     @questionView.FirstAnswer?.Content
@@ -73,7 +75,7 @@
                                     <div class="action-bar-inner">
                                         <a style="text-decoration: none;" asp-controller="Home" asp-action="Question" asp-route-id="@questionView.Id"><div class="action-btn btn-answer"><i class="fas fa-pen-square"></i><span>Answer</span></div></a> 
                                         @*<div class="action-btn btn-follow"><i class="fas fa-rss"></i><span>Follow</span></div>*@
-                                        <div style="color: #337ab7;" class="action-btn btn-upvote"><i class="far fa-thumbs-up"></i><span class="nbUpvote">1000</span><span> Upvote</span></div>
+                                        <div style="color: #337ab7;" class="action-btn btn-upvote"><i class="far fa-thumbs-up"></i><span class="nbUpvote">@questionView.UpvoteCount</span><span> Upvote</span></div>
                                         @*<div class="action-btn btn-downvote"><i class="far fa-thumbs-down"></i><span>Downvote</span></div>*@
                                         @*<div class="social-network">
                                             <i class="fab fa-js icon-social-network"></i>

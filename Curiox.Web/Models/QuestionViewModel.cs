@@ -14,5 +14,6 @@ namespace Curiox.Web.Models
         }
 
         public virtual ICollection<AnswerViewModel> Answer { get; set; }
+
     }
 }

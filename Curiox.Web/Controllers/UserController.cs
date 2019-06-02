@@ -23,8 +23,14 @@ namespace Curiox.Web.Controllers
         [HttpPost("/Api/SignUp")]
         public IActionResult Register([FromBody] UserRegisterDTO userDTO)
         {
-            var user = new User(userDTO.Username, userDTO.Email, userDTO.Password);
-            userRepo.Add(user);
+            var user = userRepo.Get(userDTO.Email, userDTO.Password);
+            if (user != null)
+            {
+                return BadRequest(new { error = true, message = "User existed" });
+            }
+            
+            var newUser = new User(userDTO.Username, userDTO.Email, userDTO.Password);
+            userRepo.Add(newUser);
 
             var message = "Success";
 

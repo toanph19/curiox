@@ -19,6 +19,8 @@ namespace Curiox.Web.Controllers
         private IRepository<Question> questionRepo = new Repository<Question>();
         private IRepository<Category> categoryRepo = new Repository<Category>();
         private IRepository<Answer> answerRepo = new Repository<Answer>();
+        private IRepository<QuestionUpvote> questionUpvoteRepo = new Repository<QuestionUpvote>();
+        private IRepository<AnswerUpvote> answerUpvoteRepo = new Repository<AnswerUpvote>();
 
         public IActionResult Index()
         {
@@ -59,7 +61,7 @@ namespace Curiox.Web.Controllers
                     DateCreated = qs.DateCreated,
                     DateUpdated = qs.DateUpdated,
                     UserName = users.FirstOrDefault(user => user.Id == qs.UserId)?.Username,
-                    CategoryName = categories.FirstOrDefault(cat => cat.Id == qs.CategoryId)?.Name,
+                    Category = categories.FirstOrDefault(cat => cat.Id == qs.CategoryId)?.Name,
                     FirstAnswer = answerView,
                     AnswerCounts = questionAnswers.Count()
                 };
@@ -87,6 +89,7 @@ namespace Curiox.Web.Controllers
             var users = userRepo.GetAll().ToList();
             var questions = questionRepo.GetAll(q => q.CategoryId == categoryId).ToList();
             var answers = answerRepo.GetAll().ToList();
+            var questionUpvotes = questionUpvoteRepo.GetAll();
 
             var viewModel = new IndexViewModel();
 
@@ -120,9 +123,10 @@ namespace Curiox.Web.Controllers
                     DateCreated = qs.DateCreated,
                     DateUpdated = qs.DateUpdated,
                     UserName = users.FirstOrDefault(user => user.Id == qs.UserId)?.Username,
-                    CategoryName = categories.FirstOrDefault(cat => cat.Id == qs.CategoryId)?.Name,
+                    Category = categories.FirstOrDefault(cat => cat.Id == qs.CategoryId)?.Name,
                     FirstAnswer = answerView,
-                    AnswerCounts = questionAnswers.Count()
+                    AnswerCounts = questionAnswers.Count(),
+                    UpvoteCount = questionUpvotes.Count(u => u.QuestionId == qs.Id)
                 };
 
                 qaViews.Add(qaView);
@@ -156,14 +160,17 @@ namespace Curiox.Web.Controllers
 
             var users = userRepo.GetAll().ToList();
             var categories = categoryRepo.GetAll().ToList();
-                        
+            var questionUpvotes = questionUpvoteRepo.GetAll();
+
+
             var questionView = new QuestionViewModel
             {
                 Title = question.Title,
                 DateCreated = question.DateCreated,
                 DateUpdated = question.DateUpdated,
                 UserName = users.Find(user => user.Id == question.UserId)?.Username,
-                CategoryName = categories.Find(cat => cat.Id == question.CategoryId)?.Name
+                Category = categories.Find(cat => cat.Id == question.CategoryId)?.Name,
+                UpvoteCount = questionUpvotes.Count(u => u.QuestionId == question.Id)
             };
 
             var answers = answerRepo.GetAll(a => a.QuestionId == id).ToList();
