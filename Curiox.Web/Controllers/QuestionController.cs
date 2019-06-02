@@ -28,7 +28,7 @@ namespace Curiox.Web.Controllers
                 return BadRequest();
             }
 
-            var category = categoryRepo.First(c => c.Name == questionDTO.Category);
+            var category = categoryRepo.FirstOrDefault(c => c.Name == questionDTO.Category);
             if (category == null)
             {
                 return BadRequest();
@@ -94,7 +94,13 @@ namespace Curiox.Web.Controllers
                 return BadRequest();
             }
 
-            var upvote = new QuestionUpvote()
+            var upvote = questionUpvoteRepo.FirstOrDefault(u => u.UserId == user.Id && u.QuestionId == questionId);
+            if (upvote != null)
+            {
+                return BadRequest();
+            }
+            
+            upvote = new QuestionUpvote()
             {
                 QuestionId = questionId,
                 UserId = user.Id
@@ -114,7 +120,13 @@ namespace Curiox.Web.Controllers
                 return BadRequest();
             }
 
-            var upvote = new AnswerUpvote()
+            var upvote = answerUpvoteRepo.FirstOrDefault(u => u.UserId == user.Id && u.AnswerId == answerId);
+            if (upvote != null)
+            {
+                return BadRequest();
+            }
+
+            upvote = new AnswerUpvote()
             {
                 AnswerId = answerId,
                 UserId = user.Id
@@ -124,5 +136,44 @@ namespace Curiox.Web.Controllers
             return CreatedAtAction("Index", null);
         }
 
+        [HttpDelete("/Api/Question/Upvote")]
+        public IActionResult DeleteUpvoteQuestion(int questionId, [FromBody] UserTokenDTO tokenDTO)
+        {
+            var token = tokenDTO.Token;
+            var user = userRepo.GetByToken(token);
+            if (user == null)
+            {
+                return BadRequest();
+            }
+
+            var upvote = questionUpvoteRepo.FirstOrDefault(u => u.UserId == user.Id && u.QuestionId == questionId);
+            if (upvote == null)
+            {
+                return BadRequest();
+            }
+            questionUpvoteRepo.Delete(upvote);
+
+            return Ok();
+        }
+
+        [HttpDelete("/Api/Answer/Upvote")]
+        public IActionResult DeleteUpvoteAnswer(int answerId, [FromBody] UserTokenDTO tokenDTO)
+        {
+            var token = tokenDTO.Token;
+            var user = userRepo.GetByToken(token);
+            if (user == null)
+            {
+                return BadRequest();
+            }
+
+            var upvote = answerUpvoteRepo.FirstOrDefault(u => u.UserId == user.Id && u.AnswerId == answerId);
+            if (upvote == null)
+            {
+                return BadRequest();
+            }
+            answerUpvoteRepo.Delete(upvote);
+
+            return Ok();
+        }
     }
 }

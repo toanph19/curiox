@@ -9,7 +9,7 @@ namespace Curiox.Data.Repositories
     public interface IRepository<T> where T : BaseEntity
     {
         T Get(int id);
-        T First(Expression<Func<T, bool>> predicate);
+        T FirstOrDefault(Expression<Func<T, bool>> predicate);
         IEnumerable<T> GetAll();
         IEnumerable<T> GetAll(Expression<Func<T, bool>> predicate);
         void Add(T entity);

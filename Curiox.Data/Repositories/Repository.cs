@@ -51,9 +51,9 @@ namespace Curiox.Data.Repositories
             Db.SaveChanges();
         }
 
-        public T First(Expression<Func<T, bool>> predicate)
+        public T FirstOrDefault(Expression<Func<T, bool>> predicate)
         {
-            return Db.Set<T>().First(predicate);
+            return Db.Set<T>().FirstOrDefault(predicate);
         }
     }
 }
