@@ -25,9 +25,10 @@ namespace Curiox.Web.Controllers
         public IActionResult Index()
         {
             var users = userRepo.GetAll().ToList();
-            var questions = questionRepo.GetAll().ToList();
+            var questions = questionRepo.GetAll().OrderByDescending(q => q.DateCreated).ToList();
             var categories = categoryRepo.GetAll().ToList();
             var answers = answerRepo.GetAll().ToList();
+            var questionUpvotes = questionUpvoteRepo.GetAll();
 
             var viewModel = new IndexViewModel();
 
@@ -63,7 +64,8 @@ namespace Curiox.Web.Controllers
                     UserName = users.FirstOrDefault(user => user.Id == qs.UserId)?.Username,
                     Category = categories.FirstOrDefault(cat => cat.Id == qs.CategoryId)?.Name,
                     FirstAnswer = answerView,
-                    AnswerCounts = questionAnswers.Count()
+                    AnswerCounts = questionAnswers.Count(),
+                    UpvoteCount = questionUpvotes.Count(u => u.QuestionId == qs.Id)
                 };
 
                 qaViews.Add(qaView);
@@ -87,7 +89,7 @@ namespace Curiox.Web.Controllers
             var categoryId = categoryObj.Id;
 
             var users = userRepo.GetAll().ToList();
-            var questions = questionRepo.GetAll(q => q.CategoryId == categoryId).ToList();
+            var questions = questionRepo.GetAll(q => q.CategoryId == categoryId).OrderByDescending(q => q.DateCreated).ToList();
             var answers = answerRepo.GetAll().ToList();
             var questionUpvotes = questionUpvoteRepo.GetAll();
 
@@ -161,8 +163,7 @@ namespace Curiox.Web.Controllers
             var users = userRepo.GetAll().ToList();
             var categories = categoryRepo.GetAll().ToList();
             var questionUpvotes = questionUpvoteRepo.GetAll();
-
-
+            
             var questionView = new QuestionViewModel
             {
                 Title = question.Title,
