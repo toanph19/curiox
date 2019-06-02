@@ -175,6 +175,7 @@ namespace Curiox.Web.Controllers
             };
 
             var answers = answerRepo.GetAll(a => a.QuestionId == id).ToList();
+            var answerUpvotes = answerUpvoteRepo.GetAll();
 
             foreach (var answer in answers)
             {
@@ -182,7 +183,8 @@ namespace Curiox.Web.Controllers
                 {
                     Content = answer.Content,
                     QuestionId = answer.QuestionId,
-                    UserName = users.Find(user => user.Id == answer.UserId)?.Username
+                    UserName = users.Find(user => user.Id == answer.UserId)?.Username,
+                    UpvoteCount = answerUpvotes.Count(u => u.AnswerId == answer.Id)
                 };
                 questionView.Answer.Add(answerView);
             }
