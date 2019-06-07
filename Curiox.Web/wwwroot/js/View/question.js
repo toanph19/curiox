@@ -5,9 +5,9 @@
             let questionId = $(".question-content-text").attr('question-id');
             let content = $("#contentAnswer").val();
             var jsonObj = {
-                "token": localStorage.getItem('token'),
-                "content": content,
-                "questionId": questionId,
+                "Token": localStorage.getItem('token'),
+                "Content": content,
+                "QuestionId": questionId,
             };
             debugger
             $.ajax({
@@ -16,16 +16,20 @@
                 contentType: "application/json",
                 data: JSON.stringify(jsonObj),
                 success: function (data, txtStatus, xhr) {
+                    debugger
                     if (txtStatus === "success") {
                         CommonJS.showSuccessMsg("Add answer successfully!");
                     }
                 },
                 error: function () {
+                    debugger
+                    debugger
                     CommonJS.showFailMsg("An error occured! Please try again!");
                 }
             });
         } else {
             //verify if already logged in
+            debugger
             CommonJS.showFailMsg('You must logged in first!');
             window.location.href = '/Home/Login';
         }

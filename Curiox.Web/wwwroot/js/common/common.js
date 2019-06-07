@@ -24,3 +24,21 @@
         }, 3000);
     }    
 }
+
+$(document).ready(function () {
+    $('.nav-item').on('click', function () {
+        let activeCategory = $(this).find('div.label-item').html();
+        localStorage.setItem('activeCategory', activeCategory);
+    });
+
+    let activeCategory = localStorage.getItem('activeCategory');
+    let allCategory = $('.nav-item');
+    for (let item of allCategory) {
+        if ($(item).find('div.label-item').html() === activeCategory) {
+            $(item).addClass('category-active');
+        } else {
+            $(item).removeClass('category-active');
+        }
+    }
+
+});

@@ -16,6 +16,20 @@
     text-align: center;
 }
 
+.upvoted {
+    color: #337ab7;
+    font-weight: 700;
+}
+
+.category-active {
+    background: #95a5a6 !important;
+    border-radius: 4px !important;
+}
+
+.label-item:hover {
+    color: #3498db !important;
+}
+
 .msg-success {
     color: green;
 }

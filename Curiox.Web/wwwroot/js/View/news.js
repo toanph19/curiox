@@ -1,4 +1,8 @@
 ﻿$(document).ready(function () {
+    if (window.location.pathname === '/') {
+        localStorage.removeItem('activeCategory');
+    }
+    
     //handle event click btn-answer
     $('.btn-answer').on('click', function () {
         window.location.href = "/Home/Question";
