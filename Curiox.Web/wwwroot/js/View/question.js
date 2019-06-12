@@ -2,34 +2,31 @@
     //handle add answer
     $(document).on('click', '#btnSubmit', function () {
         if (localStorage.getItem("token") !== "" && localStorage.getItem("token") !== null) {
-            let questionId = $(".question-content-text").attr('question-id');
+            let questionId = window.location.pathname.slice(-2);
             let content = $("#contentAnswer").val();
             var jsonObj = {
-                "Token": localStorage.getItem('token'),
-                "Content": content,
-                "QuestionId": questionId,
+                "token": localStorage.getItem('token'),
+                "content": content,
+                "question_id": questionId
             };
-            debugger
             $.ajax({
                 method: "POST",
                 url: Curiox.Config.loginUrl + "/Api/Answer",
                 contentType: "application/json",
                 data: JSON.stringify(jsonObj),
                 success: function (data, txtStatus, xhr) {
-                    debugger
                     if (txtStatus === "success") {
                         CommonJS.showSuccessMsg("Add answer successfully!");
                     }
+                    window.location.href = '/Home/Question/' + questionId;
                 },
                 error: function () {
-                    debugger
-                    debugger
                     CommonJS.showFailMsg("An error occured! Please try again!");
+                    window.location.href = '/Home/Question/' + questionId;
                 }
             });
         } else {
             //verify if already logged in
-            debugger
             CommonJS.showFailMsg('You must logged in first!');
             window.location.href = '/Home/Login';
         }
@@ -43,6 +40,7 @@
                 "token": localStorage.getItem('token'),
             };
             let thisUpvote = $(this).find('.nbUpvote');
+            debugger
             $.ajax({
                 method: "POST",
                 url: Curiox.Config.loginUrl + "/Api/Answer/Upvote?answerId=" + answerId,
