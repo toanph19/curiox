@@ -2,6 +2,12 @@
     if (window.location.pathname === '/') {
         localStorage.removeItem('activeCategory');
     }
+
+    // check liked question
+    let likedQuestions = $("[question-liked='1']");
+    for (let likedQuestion of likedQuestions) {
+        $(likedQuestion).parents('.news-main-item').find('.btn-upvote').addClass('upvoted');
+    }
     
     //handle event click btn-answer
     $('.btn-answer').on('click', function () {
@@ -22,8 +28,15 @@
             data: JSON.stringify(jsonObj),
             success: function (data, txtStatus, xhr) {
                 if (txtStatus === "success") {
-                    let nbUpvote = parseInt(thisUpvote.html());
-                    thisUpvote.html(++nbUpvote);
+                    if (xhr.status == 201) {    //like
+                        let nbUpvote = parseInt(thisUpvote.html());
+                        thisUpvote.html(++nbUpvote);
+                        thisUpvote.parents('.btn-upvote').addClass('upvoted');
+                    } else if (xhr.status == 200) { //unlike
+                        let nbUpvote = parseInt(thisUpvote.html());
+                        thisUpvote.html(--nbUpvote);
+                        thisUpvote.parents('.btn-upvote').removeClass('upvoted');
+                    }
                 }
             },
             error: function () {

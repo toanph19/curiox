@@ -1,4 +1,10 @@
 ﻿$(document).ready(function () {
+    // check liked question
+    let likedAnswers = $("[answer-liked='1']");
+    for (let likedAnswer of likedAnswers) {
+        $(likedAnswer).parents('.news-main-item').find('.btn-upvote').addClass('upvoted');
+    }
+
     //handle add answer
     $(document).on('click', '#btnSubmit', function () {
         if (localStorage.getItem("token") !== "" && localStorage.getItem("token") !== null) {
