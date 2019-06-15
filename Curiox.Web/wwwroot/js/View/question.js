@@ -2,7 +2,7 @@
     // check liked question
     let likedAnswers = $("[answer-liked='1']");
     for (let likedAnswer of likedAnswers) {
-        $(likedAnswer).parents('.news-main-item').find('.btn-upvote').addClass('upvoted');
+        $(likedAnswer).parents('.page-header').first().find('.btn-upvote').addClass('upvoted');
     }
 
     //handle add answer
@@ -46,16 +46,23 @@
                 "token": localStorage.getItem('token'),
             };
             let thisUpvote = $(this).find('.nbUpvote');
-            debugger
             $.ajax({
                 method: "POST",
                 url: Curiox.Config.loginUrl + "/Api/Answer/Upvote?answerId=" + answerId,
                 contentType: "application/json",
                 data: JSON.stringify(jsonObj),
                 success: function (data, txtStatus, xhr) {
+                    debugger
                     if (txtStatus === "success") {
-                        let nbUpvote = parseInt(thisUpvote.html());
-                        thisUpvote.html(++nbUpvote);
+                        if (xhr.status == 201) {    //like
+                            let nbUpvote = parseInt(thisUpvote.html());
+                            thisUpvote.html(++nbUpvote);
+                            thisUpvote.parents('.btn-upvote').addClass('upvoted');
+                        } else if (xhr.status == 200) { //unlike
+                            let nbUpvote = parseInt(thisUpvote.html());
+                            thisUpvote.html(--nbUpvote);
+                            thisUpvote.parents('.btn-upvote').removeClass('upvoted');
+                        }
                     }
                 },
                 error: function () {
