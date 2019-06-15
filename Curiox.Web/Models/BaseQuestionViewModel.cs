@@ -14,5 +14,6 @@ namespace Curiox.Web.Models
         public string UserName { get; set; }
         public string Category { get; set; }
         public int UpvoteCount { get; set; }
+        public int Liked { get; set; }
     }
 }

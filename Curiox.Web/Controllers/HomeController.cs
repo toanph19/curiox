@@ -54,7 +54,8 @@ namespace Curiox.Web.Controllers
                         UserName = users.Find(user => user.Id == firstAnswer.UserId).Username
                     };
                 }
-                
+
+                var questionLiked = questionUpvotes.FirstOrDefault(up => up.UserId == qs.UserId && up.QuestionId == qs.Id) == null ? 0 : 1;
                 var qaView = new IndexQuestionViewModel
                 {
                     Id = qs.Id,
@@ -65,7 +66,8 @@ namespace Curiox.Web.Controllers
                     Category = categories.FirstOrDefault(cat => cat.Id == qs.CategoryId)?.Name,
                     FirstAnswer = answerView,
                     AnswerCounts = questionAnswers.Count(),
-                    UpvoteCount = questionUpvotes.Count(u => u.QuestionId == qs.Id)
+                    UpvoteCount = questionUpvotes.Count(u => u.QuestionId == qs.Id),
+                    Liked = questionLiked
                 };
 
                 qaViews.Add(qaView);
@@ -163,7 +165,8 @@ namespace Curiox.Web.Controllers
             var users = userRepo.GetAll().ToList();
             var categories = categoryRepo.GetAll().ToList();
             var questionUpvotes = questionUpvoteRepo.GetAll();
-            
+
+            var questionLiked = questionUpvotes.FirstOrDefault(up => up.UserId == question.UserId && up.QuestionId == question.Id) == null ? 0 : 1;
             var questionView = new QuestionViewModel
             {
                 Title = question.Title,
@@ -171,7 +174,8 @@ namespace Curiox.Web.Controllers
                 DateUpdated = question.DateUpdated,
                 UserName = users.Find(user => user.Id == question.UserId)?.Username,
                 Category = categories.Find(cat => cat.Id == question.CategoryId)?.Name,
-                UpvoteCount = questionUpvotes.Count(u => u.QuestionId == question.Id)
+                UpvoteCount = questionUpvotes.Count(u => u.QuestionId == question.Id),
+                Liked = questionLiked
             };
 
             var answers = answerRepo.GetAll(a => a.QuestionId == id).ToList();
@@ -179,12 +183,16 @@ namespace Curiox.Web.Controllers
 
             foreach (var answer in answers)
             {
+                var answerLiked = answerUpvotes.FirstOrDefault(u => u.UserId == answer.UserId && u.AnswerId == answer.Id) == null ? 0 : 1;
+
                 var answerView = new AnswerViewModel
                 {
+                    Id = answer.Id,
                     Content = answer.Content,
                     QuestionId = answer.QuestionId,
                     UserName = users.Find(user => user.Id == answer.UserId)?.Username,
-                    UpvoteCount = answerUpvotes.Count(u => u.AnswerId == answer.Id)
+                    UpvoteCount = answerUpvotes.Count(u => u.AnswerId == answer.Id),
+                    Liked = answerLiked
                 };
                 questionView.Answer.Add(answerView);
             }

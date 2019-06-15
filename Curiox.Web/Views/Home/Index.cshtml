@@ -50,7 +50,7 @@
                         @foreach (var questionView in Model.QuestionsAndAnswers)
                         {
                             <li class="news-main-item">
-                                <div question-id=@questionView.Id class="question-title">
+                                <div question-id=@questionView.Id question-liked=@questionView.Liked class="question-title">
                                     <a class="question-link" asp-controller="Home" asp-action="Question" asp-route-id="@questionView.Id">
                                         <h4>@questionView.Title</h4>
                                     </a>

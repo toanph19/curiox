@@ -27,7 +27,7 @@
                 <div class="question-content">
                     <div>
                         <div>
-                            <h1 class="question-content-text" question-id="@Model.Id">Question: @Model.Title </h1>
+                            <h1 class="question-content-text" question-id="@Model.Id" question-liked="@Model.Liked">Question: @Model.Title </h1>
                             <div class="question-info">
                                 <div class="poster">
                                     <small>by <strong>@Model.UserName</strong> on @Model.DateCreated</small>
@@ -45,7 +45,7 @@
                         <div class="poster">
                             <small>Posted on 30/03/2019</small>
                         </div>
-                        <p class="anwser-content" answer-id="@answer.Id">
+                        <p class="anwser-content" answer-id="@answer.Id" answer-liked="@answer.Liked">
                             @answer.Content
                         </p>
 

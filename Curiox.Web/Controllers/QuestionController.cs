@@ -97,17 +97,20 @@ namespace Curiox.Web.Controllers
             var upvote = questionUpvoteRepo.FirstOrDefault(u => u.UserId == user.Id && u.QuestionId == questionId);
             if (upvote != null)
             {
-                return BadRequest();
+                questionUpvoteRepo.Delete(upvote);
+                return Ok();
             }
-            
-            upvote = new QuestionUpvote()
+            else
             {
-                QuestionId = questionId,
-                UserId = user.Id
-            };
-            questionUpvoteRepo.Add(upvote);
+                upvote = new QuestionUpvote()
+                {
+                    QuestionId = questionId,
+                    UserId = user.Id
+                };
+                questionUpvoteRepo.Add(upvote);
 
-            return CreatedAtAction("Index", null);
+                return CreatedAtAction("Index", null);
+            }       
         }
 
         [HttpPost("/Api/Answer/Upvote")]
@@ -123,17 +126,20 @@ namespace Curiox.Web.Controllers
             var upvote = answerUpvoteRepo.FirstOrDefault(u => u.UserId == user.Id && u.AnswerId == answerId);
             if (upvote != null)
             {
-                return BadRequest();
+                answerUpvoteRepo.Delete(upvote);
+                return Ok();
             }
-
-            upvote = new AnswerUpvote()
+            else
             {
-                AnswerId = answerId,
-                UserId = user.Id
-            };
-            answerUpvoteRepo.Add(upvote);
+                upvote = new AnswerUpvote()
+                {
+                    AnswerId = answerId,
+                    UserId = user.Id
+                };
+                answerUpvoteRepo.Add(upvote);
 
-            return CreatedAtAction("Index", null);
+                return CreatedAtAction("Index", null);
+            }
         }
 
         [HttpDelete("/Api/Question/Upvote")]
