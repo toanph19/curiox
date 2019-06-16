@@ -13,5 +13,7 @@ namespace Curiox.Web.Models
         public int QuestionId { get; set; }
         public int UpvoteCount { get; set; }
         public int Liked { get; set; }
+        public DateTime? DateCreated { get; set; }
+        public DateTime? DateUpdated { get; set; }
     }
 }

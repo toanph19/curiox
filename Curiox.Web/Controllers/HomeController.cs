@@ -53,7 +53,9 @@ namespace Curiox.Web.Controllers
                     {
                         Content = firstAnswer.Content.Substring(0, Math.Min(IndexQuestionViewModel.MaxAnswerDisplayLength, firstAnswer.Content.Length)),
                         QuestionId = firstAnswer.QuestionId,
-                        UserName = users.Find(user => user.Id == firstAnswer.UserId).Username
+                        UserName = users.Find(user => user.Id == firstAnswer.UserId).Username,
+                        DateCreated = firstAnswer.DateCreated,
+                        DateUpdated= firstAnswer.DateUpdated
                     };
                 }
 
@@ -118,7 +120,9 @@ namespace Curiox.Web.Controllers
                     {
                         Content = firstAnswer.Content.Substring(0, Math.Min(IndexQuestionViewModel.MaxAnswerDisplayLength, firstAnswer.Content.Length)),
                         QuestionId = firstAnswer.QuestionId,
-                        UserName = users.Find(user => user.Id == firstAnswer.UserId).Username
+                        UserName = users.Find(user => user.Id == firstAnswer.UserId).Username,
+                        DateCreated = firstAnswer.DateCreated,
+                        DateUpdated= firstAnswer.DateUpdated
                     };
                 }
 
@@ -194,7 +198,9 @@ namespace Curiox.Web.Controllers
                     QuestionId = answer.QuestionId,
                     UserName = users.Find(user => user.Id == answer.UserId)?.Username,
                     UpvoteCount = answerUpvotes.Count(u => u.AnswerId == answer.Id),
-                    Liked = answerLiked
+                    Liked = answerLiked,
+                    DateCreated = answer.DateCreated,
+                    DateUpdated = answer.DateUpdated
                 };
                 questionView.Answer.Add(answerView);
             }

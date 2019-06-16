@@ -43,7 +43,7 @@
                     <div class="page-header">
                         <h3>Answer by<strong>  @answer.UserName </strong></h3>
                         <div class="poster">
-                            <small>Posted on 30/03/2019</small>
+                            <small>Answered on @answer.DateCreated</small> @if (answer.DateUpdated != null) { <small>  Last Updated on @answer.DateCreated</small>}
                         </div>
                         <p class="anwser-content" answer-id="@answer.Id" answer-liked="@answer.Liked">
                             @answer.Content
