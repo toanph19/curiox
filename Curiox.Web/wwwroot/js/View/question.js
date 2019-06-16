@@ -1,4 +1,15 @@
 ﻿$(document).ready(function () {
+    // check author of question
+    let listAnswers = $('.page-header');
+    for (let item of listAnswers) {
+        let author = $(item).find('.answer-author').html().trim();
+        let thisUser = JSON.parse(localStorage.getItem('user'));
+        if (thisUser != author) {
+            $(item).find('.btn-edit-answer').remove();
+            $(item).find('.btn-delete-answer').remove();
+        }
+    }
+
     // check liked question
     let likedAnswers = $("[answer-liked='1']");
     for (let likedAnswer of likedAnswers) {
@@ -75,5 +86,42 @@
             window.location.href = '/Home/Login';
         }
         
+    });
+
+    //handle event click btn-edit-answer
+    $('.btn-edit-answer').on('click', function () {
+        if (localStorage.getItem("token") !== "" && localStorage.getItem("token") !== null) {
+            alert('edit');
+            $.ajax({
+                method: "POST",
+                url: Curiox.Config.loginUrl,
+                contentType: "application/json",
+                data: JSON.stringify(jsonObj),
+                success: function (data, txtStatus, xhr) {
+                    
+                },
+                error: function () {
+                    CommonJS.showFailMsg("An error occured! Please try again!");
+                }
+            });
+        } else {
+            //verify if already logged in
+            CommonJS.showFailMsg('You must logged in first!');
+            window.location.href = '/Home/Login';
+        }
+
+    });
+
+    //handle event click btn-delete-answer
+    $('.btn-delete-answer').on('click', function () {
+        if (localStorage.getItem("token") !== "" && localStorage.getItem("token") !== null) {
+            let idAnswer = $(this).parents('.page-header').find('.anwser-content').attr('answer-id');
+            $('#confirm-box').data('id', idAnswer).dialog('open');
+        } else {
+            //verify if already logged in
+            CommonJS.showFailMsg('You must logged in first!');
+            window.location.href = '/Home/Login';
+        }
+
     });
 });

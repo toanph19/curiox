@@ -41,7 +41,7 @@
                 @foreach (var answer in Model.Answer)
                 {
                     <div class="page-header">
-                        <h3>Answer by<strong>  @answer.UserName </strong></h3>
+                        <h3>Answer by<strong class="answer-author">  @answer.UserName </strong></h3>
                         <div class="poster">
                             <small>Posted on 30/03/2019</small>
                         </div>
@@ -71,6 +71,13 @@
                         </div>
                     </form>
                 </div>
+            </div>
+        </div>
+
+        <div class="" id="confirm-box">
+            <div class="d-flex">
+                <div class="icon-warning"><i class="fas fa-exclamation-triangle"></i></div>
+                <div class="title-confirm">Do you really want to delete this answer?</div>
             </div>
         </div>
 

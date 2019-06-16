@@ -62,9 +62,4 @@
     } else {
         $('#username').html('');
     }
-
-    //handle event click btn-downvote
-    $('.btn-downvote').on('click', function () {
-        alert('downvote');
-    });
 });

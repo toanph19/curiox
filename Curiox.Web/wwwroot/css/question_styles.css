@@ -1,4 +1,13 @@
-﻿textarea{
+﻿.d-flex {
+    display: flex;
+    align-items: center;
+}
+
+body {
+    background: #fff;
+}
+
+textarea {
     resize: none;
 }
 
@@ -66,7 +75,7 @@
     width: 100%;
 }
 
-.btn-upvote{
+.btn-upvote {
     cursor: pointer;
 }
 
@@ -74,4 +83,11 @@
     #sidebar {
         display: none;
     }
+}
+
+.icon-warning {
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    margin-right: 10px;
 }

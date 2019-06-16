@@ -32,7 +32,6 @@ $(document).ready(function () {
     });
 
     let currentUrl = window.location.pathname;
-    debugger
     if (currentUrl.includes('Category')) {
         let allCategory = $('.nav-item');
         let activeCategory = '#' + currentUrl.substring(10);
