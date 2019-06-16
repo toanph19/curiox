@@ -11,6 +11,7 @@ namespace Curiox.Data.Entities
         }
 
         public string Title { get; set; }
+        //public NpgsqlTypes.NpgsqlDateTime? DateCreated { get; set; }
         public DateTime? DateCreated { get; set; }
         public DateTime? DateUpdated { get; set; }
         public int? UserId { get; set; }

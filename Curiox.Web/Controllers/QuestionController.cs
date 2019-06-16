@@ -67,7 +67,69 @@ namespace Curiox.Web.Controllers
 
             return CreatedAtAction(nameof(Question), answerDTO.QuestionId);
         }
-        
+
+        [HttpPut("/Api/Answer")]
+        public IActionResult EditAnswer(int answerId, [FromBody] EditAnswerDTO answerDTO)
+        {
+            var token = answerDTO.Token;
+            var user = userRepo.GetByToken(token);
+            if (user == null)
+            {
+                return BadRequest();
+            }
+
+            var answer = answerRepo.FirstOrDefault(a => a.Id == answerId && a.UserId == user.Id);
+            if (answer == null)
+            {
+                return BadRequest();
+            }
+            answer.Content = answerDTO.Content;
+            answerRepo.Edit(answer);
+
+            return Ok();
+        }
+
+
+        [HttpDelete("/Api/Question")]
+        public IActionResult DeleteQuestion(int questionId, [FromBody] UserTokenDTO tokenDTO)
+        {
+            var token = tokenDTO.Token;
+            var user = userRepo.GetByToken(token);
+            if (user == null)
+            {
+                return BadRequest();
+            }
+
+            var question = questionRepo.FirstOrDefault(q => q.Id == questionId && q.UserId == user.Id);
+            if (question == null)
+            {
+                return BadRequest();
+            }
+
+            questionRepo.Delete(question);
+            return Ok();
+        }
+
+        [HttpDelete("/Api/Answer")]
+        public IActionResult DeleteAnswer(int answerId, [FromBody] UserTokenDTO tokenDTO)
+        {
+            var token = tokenDTO.Token;
+            var user = userRepo.GetByToken(token);
+            if (user == null)
+            {
+                return BadRequest();
+            }
+
+            var answer = answerRepo.FirstOrDefault(q => q.Id == answerId && q.UserId == user.Id);
+            if (answer == null)
+            {
+                return BadRequest();
+            }
+
+            answerRepo.Delete(answer);
+            return Ok();
+        }
+
         [HttpGet("/Api/Question/Upvote")]
         public IActionResult GetQuestionUpvotes(int questionId)
         {

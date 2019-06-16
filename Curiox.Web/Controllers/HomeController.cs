@@ -25,10 +25,12 @@ namespace Curiox.Web.Controllers
         public IActionResult Index()
         {
             var users = userRepo.GetAll().ToList();
-            var questions = questionRepo.GetAll().OrderByDescending(q => q.DateCreated).ToList();
             var categories = categoryRepo.GetAll().ToList();
             var answers = answerRepo.GetAll().ToList();
             var questionUpvotes = questionUpvoteRepo.GetAll();
+
+
+            var questions = questionRepo.GetAll().OrderByDescending(q => q.DateCreated).ToList();
 
             var viewModel = new IndexViewModel();
 
