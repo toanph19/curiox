@@ -31,14 +31,20 @@ $(document).ready(function () {
         localStorage.setItem('activeCategory', activeCategory);
     });
 
-    let activeCategory = localStorage.getItem('activeCategory');
-    let allCategory = $('.nav-item');
-    for (let item of allCategory) {
-        if ($(item).find('div.label-item').html() === activeCategory) {
-            $(item).addClass('category-active');
-        } else {
-            $(item).removeClass('category-active');
+    let currentUrl = window.location.pathname;
+    debugger
+    if (currentUrl.includes('Category')) {
+        let allCategory = $('.nav-item');
+        let activeCategory = '#' + currentUrl.substring(10);
+        for (let item of allCategory) {
+            if ($(item).find('div.label-item').html().trim() === activeCategory) {
+                $(item).addClass('category-active');
+            } else {
+                $(item).removeClass('category-active');
+            }
         }
     }
+    
+    
 
 });

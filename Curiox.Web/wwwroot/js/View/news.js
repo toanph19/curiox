@@ -3,6 +3,17 @@
         localStorage.removeItem('activeCategory');
     }
 
+    // handle What is your link?
+    $(document).on('click', '#yourLink', function () {
+        if (localStorage.getItem("token") !== "" && localStorage.getItem("token") !== null) {
+            $('#question-box').dialog('open');
+        } else {
+            //verify if already logged in
+            CommonJS.showFailMsg('You must logged in first!');
+            window.location.href = '/Home/Login';
+        }
+    });
+
     // check liked question
     let likedQuestions = $("[question-liked='1']");
     for (let likedQuestion of likedQuestions) {
