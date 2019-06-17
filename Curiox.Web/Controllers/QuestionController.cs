@@ -40,8 +40,8 @@ namespace Curiox.Web.Controllers
                 CategoryId = category.Id,
                 Title = questionDTO.Title,
                 UserId = user.Id,
-                DateCreated = currentTime
-                
+                DateCreated = currentTime,
+                Content = questionDTO.Content
             };
             questionRepo.Add(question);
 

@@ -104,6 +104,8 @@ namespace Curiox.Data.Context
 
                 entity.Property(e => e.CategoryId).HasColumnName("category_id");
 
+                entity.Property(e => e.Content).HasColumnName("content");
+
                 entity.Property(e => e.DateCreated)
                     .HasColumnName("date_created")
                     .HasColumnType("timestamp");

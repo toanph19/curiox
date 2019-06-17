@@ -28,8 +28,7 @@ namespace Curiox.Web.Controllers
             var categories = categoryRepo.GetAll().ToList();
             var answers = answerRepo.GetAll().ToList();
             var questionUpvotes = questionUpvoteRepo.GetAll();
-
-
+            
             var questions = questionRepo.GetAll().OrderByDescending(q => q.DateCreated).ToList();
 
             var viewModel = new IndexViewModel();
@@ -44,26 +43,28 @@ namespace Curiox.Web.Controllers
             foreach (var qs in questions)
             {
                 var questionAnswers = answers.Where(a => a.QuestionId == qs.Id);
-                var firstAnswer = questionAnswers.FirstOrDefault();
+                //var firstAnswer = questionAnswers.FirstOrDefault();
+
 
                 AnswerViewModel answerView = null;
-                if (firstAnswer != null)
-                {
-                    answerView = new AnswerViewModel
-                    {
-                        Content = firstAnswer.Content.Substring(0, Math.Min(IndexQuestionViewModel.MaxAnswerDisplayLength, firstAnswer.Content.Length)),
-                        QuestionId = firstAnswer.QuestionId,
-                        UserName = users.Find(user => user.Id == firstAnswer.UserId).Username,
-                        DateCreated = firstAnswer.DateCreated,
-                        DateUpdated= firstAnswer.DateUpdated
-                    };
-                }
+                //if (firstAnswer != null)
+                //{
+                //    answerView = new AnswerViewModel
+                //    {
+                //        Content = firstAnswer.Content?.Substring(0, Math.Min(IndexQuestionViewModel.MaxAnswerDisplayLength, firstAnswer.Content.Length)),
+                //        QuestionId = firstAnswer.QuestionId,
+                //        UserName = users.Find(user => user.Id == firstAnswer.UserId).Username,
+                //        DateCreated = firstAnswer.DateCreated,
+                //        DateUpdated= firstAnswer.DateUpdated
+                //    };
+                //}
 
                 var questionLiked = questionUpvotes.FirstOrDefault(up => up.UserId == qs.UserId && up.QuestionId == qs.Id) == null ? 0 : 1;
                 var qaView = new IndexQuestionViewModel
                 {
                     Id = qs.Id,
                     Title = qs.Title,
+                    Content = qs.Content?.Substring(0, Math.Min(IndexQuestionViewModel.MaxAnswerDisplayLength, qs.Content.Length)),
                     DateCreated = qs.DateCreated,
                     DateUpdated = qs.DateUpdated,
                     UserName = users.FirstOrDefault(user => user.Id == qs.UserId)?.Username,
@@ -126,17 +127,20 @@ namespace Curiox.Web.Controllers
                     };
                 }
 
+                var questionLiked = questionUpvotes.FirstOrDefault(up => up.UserId == qs.UserId && up.QuestionId == qs.Id) == null ? 0 : 1;
                 var qaView = new IndexQuestionViewModel
                 {
                     Id = qs.Id,
                     Title = qs.Title,
+                    Content = qs.Content?.Substring(0, Math.Min(IndexQuestionViewModel.MaxAnswerDisplayLength, qs.Content.Length)),
                     DateCreated = qs.DateCreated,
                     DateUpdated = qs.DateUpdated,
                     UserName = users.FirstOrDefault(user => user.Id == qs.UserId)?.Username,
                     Category = categories.FirstOrDefault(cat => cat.Id == qs.CategoryId)?.Name,
                     FirstAnswer = answerView,
                     AnswerCounts = questionAnswers.Count(),
-                    UpvoteCount = questionUpvotes.Count(u => u.QuestionId == qs.Id)
+                    UpvoteCount = questionUpvotes.Count(u => u.QuestionId == qs.Id),
+                    Liked = questionLiked
                 };
 
                 qaViews.Add(qaView);
@@ -176,6 +180,7 @@ namespace Curiox.Web.Controllers
             var questionView = new QuestionViewModel
             {
                 Title = question.Title,
+                Content = question.Content,
                 DateCreated = question.DateCreated,
                 DateUpdated = question.DateUpdated,
                 UserName = users.Find(user => user.Id == question.UserId)?.Username,

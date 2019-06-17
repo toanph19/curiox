@@ -36,25 +36,32 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                 @*<div class="box-user">
-                    <div class="box-user-detail">
-                        <i class="fas fa-user-circle icon-size" style="font-size: 18px;"></i>
-                        <a style="cursor: pointer"><span id="username"></span></a>
-                    </div>
-                    <div class="your-question">
-                        <h4 style="cursor: pointer"><a>What is your question?</a></h4>
-                    </div>
-                </div>*@
+            <div class="box-user-detail">
+                <i class="fas fa-user-circle icon-size" style="font-size: 18px;"></i>
+                <a style="cursor: pointer"><span id="username"></span></a>
+            </div>
+            <div class="your-question">
+                <h4 style="cursor: pointer"><a>What is your question?</a></h4>
+            </div>
+        </div>*@
 
                 <div class="news-main">
                     <ul class="news-main-parent">
                         @foreach (var questionView in Model.QuestionsAndAnswers)
                         {
                             <li class="news-main-item">
-                                <div question-id=@questionView.Id class="question-title">
-                                    <a class="question-link" asp-controller="Home" question-liked=@questionView.Liked asp-action="Question" asp-route-id="@questionView.Id">
+                                <div question-id=@questionView.Id question-liked=@questionView.Liked class="question-title">
+                                    <a class="question-link" asp-controller="Home" asp-action="Question" asp-route-id="@questionView.Id">
                                         <h4>@questionView.Title</h4>
                                     </a>
+
+                                    <div class="answer-body">
+                                        @*@questionView.FirstAnswer?.Content*@
+                                        @questionView.Content
+                                        <span>(<a style="color: #0030e8;" class="question-link" asp-controller="Home" asp-action="Question" asp-route-id="@questionView.Id">more</a>)</span>
+                                    </div>
                                 </div>
+
                                 <div class="author-question">
                                     <span>By:</span>
                                     <span class="ask-by">@questionView.UserName</span>
@@ -67,21 +74,17 @@
 
 
                                 </div>
-                                <div class="answer-body">
-                                    @questionView.FirstAnswer?.Content
-                                    <span>(<a class="question-link" asp-controller="Home" asp-action="Question" asp-route-id="@questionView.Id">more</a>)</span>
-                                </div>
                                 <div class="icon-action-bar">
                                     <div class="action-bar-inner">
-                                        <a style="text-decoration: none;" asp-controller="Home" asp-action="Question" asp-route-id="@questionView.Id"><div class="action-btn btn-answer"><i class="fas fa-pen-square"></i><span style="color: #000;">Answer</span></div></a>
+                                        <a style="text-decoration: none; color: #000" asp-controller="Home" asp-action="Question" asp-route-id="@questionView.Id"><div class="action-btn btn-answer"><i class="fas fa-pen-square"></i><span>Answer</span></div></a>
                                         @*<div class="action-btn btn-follow"><i class="fas fa-rss"></i><span>Follow</span></div>*@
                                         <div class="action-btn btn-upvote"><i class="far fa-thumbs-up"></i><span class="nbUpvote">@questionView.UpvoteCount</span><span> Upvote</span></div>
                                         @*<div class="action-btn btn-downvote"><i class="far fa-thumbs-down"></i><span>Downvote</span></div>*@
                                         @*<div class="social-network">
-                                                <i class="fab fa-js icon-social-network"></i>
-                                                <i class="fab fa-python icon-social-network"></i>
-                                                <i class="fab fa-java icon-social-network"></i>
-                                            </div>*@
+                                    <i class="fab fa-js icon-social-network"></i>
+                                    <i class="fab fa-python icon-social-network"></i>
+                                    <i class="fab fa-java icon-social-network"></i>
+                                </div>*@
                                     </div>
                                 </div>
                             </li> @*end news item*@
