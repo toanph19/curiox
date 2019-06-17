@@ -16,6 +16,13 @@
     text-align: center;
 }
 
+.btnSubmitEdit {
+    height: 29px;
+    padding: 5px !important;
+    font-size: 12px !important;
+    margin-left: 5px;
+}
+
 .upvoted {
     color: #337ab7;
     font-weight: 700;

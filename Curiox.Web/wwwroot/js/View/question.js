@@ -91,25 +91,49 @@
     //handle event click btn-edit-answer
     $('.btn-edit-answer').on('click', function () {
         if (localStorage.getItem("token") !== "" && localStorage.getItem("token") !== null) {
-            alert('edit');
-            $.ajax({
-                method: "POST",
-                url: Curiox.Config.loginUrl,
-                contentType: "application/json",
-                data: JSON.stringify(jsonObj),
-                success: function (data, txtStatus, xhr) {
-                    
-                },
-                error: function () {
-                    CommonJS.showFailMsg("An error occured! Please try again!");
-                }
-            });
+            let content = $(this).parents('.page-header').find('.anwser-content').html().trim();
+            let answerId = $(this).parents('.page-header').find('.anwser-content').attr('answer-id');
+            let html = '<input answer-id="' + answerId + '"class="anwser-input" value="'
+                + content
+                + '"></input >'
+                + '<button type="button" id="btnSubmitEditAnswer" class="btn btn-primary btnSubmitEdit">Submit</button>';
+            $(this).parents('.page-header').first().find('.anwser-content').html(html);
         } else {
             //verify if already logged in
             CommonJS.showFailMsg('You must logged in first!');
             window.location.href = '/Home/Login';
         }
 
+    });
+
+    // handle submit edit answer
+    $(document).on('click', '#btnSubmitEditAnswer', function () {
+            let answerId = $(".anwser-input").attr('answer-id');
+            let content = $(".anwser-input").val();
+            var jsonObj = {
+                "token": localStorage.getItem('token'),
+                "content": content,
+        };
+            $.ajax({
+                method: "PUT",
+                url: Curiox.Config.loginUrl + "/Api/Answer?answerId=" + answerId,
+                contentType: "application/json",
+                data: JSON.stringify(jsonObj),
+                success: function (data, txtStatus, xhr) {
+                    if (txtStatus === "success") {
+                        CommonJS.showSuccessMsg("Edit answer successfully!");
+                    }
+                    location.reload();
+                },
+                error: function () {
+                    CommonJS.showFailMsg("An error occured! Please try again!");
+                    location.reload();
+                }
+            });
+    });
+    // blur input
+    $(document).on('blur', '.anwser-input', function () {
+        
     });
 
     //handle event click btn-delete-answer
