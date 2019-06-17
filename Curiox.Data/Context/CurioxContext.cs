@@ -57,6 +57,14 @@ namespace Curiox.Data.Context
 
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
+                entity.Property(e => e.DateCreated)
+                    .HasColumnName("date_created")
+                    .HasColumnType("timestamp");
+
+                entity.Property(e => e.DateUpdated)
+                    .HasColumnName("date_updated")
+                    .HasColumnType("timestamp");
+
                 entity.HasOne(d => d.Question)
                     .WithMany(p => p.Answer)
                     .HasForeignKey(d => d.QuestionId)
@@ -98,11 +106,11 @@ namespace Curiox.Data.Context
 
                 entity.Property(e => e.DateCreated)
                     .HasColumnName("date_created")
-                    .HasColumnType("date");
+                    .HasColumnType("timestamp");
 
                 entity.Property(e => e.DateUpdated)
                     .HasColumnName("date_updated")
-                    .HasColumnType("date");
+                    .HasColumnType("timestamp");
 
                 entity.Property(e => e.Title)
                     .IsRequired()

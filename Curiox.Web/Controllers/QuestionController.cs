@@ -34,13 +34,14 @@ namespace Curiox.Web.Controllers
                 return BadRequest();
             }
 
+            var currentTime = DateTime.Now;
             var question = new Question()
             {
                 CategoryId = category.Id,
                 Title = questionDTO.Title,
                 UserId = user.Id,
-                DateCreated = DateTime.Now,
-
+                DateCreated = currentTime
+                
             };
             questionRepo.Add(question);
 
@@ -56,12 +57,16 @@ namespace Curiox.Web.Controllers
             {
                 return BadRequest();
             }
-
+            
+            var currentTime = DateTime.Now;
             var answer = new Answer()
             {
                 Content = answerDTO.Content,
                 UserId = user.Id,
-                QuestionId = answerDTO.QuestionId
+                QuestionId = answerDTO.QuestionId,
+                DateCreated = currentTime,
+                DateUpdated = currentTime
+
             };
             answerRepo.Add(answer);
 
@@ -84,6 +89,8 @@ namespace Curiox.Web.Controllers
                 return BadRequest();
             }
             answer.Content = answerDTO.Content;
+            answer.DateUpdated = DateTime.Now;
+
             answerRepo.Edit(answer);
 
             return Ok();
