@@ -88,9 +88,11 @@
         
     });
 
+    let currentPosition = null;
     //handle event click btn-edit-answer
-    $('.btn-edit-answer').on('click', function () {
+    $('.btn-edit-answer').on('click', function (e) {
         if (localStorage.getItem("token") !== "" && localStorage.getItem("token") !== null) {
+            currentPosition = $(this).offset().top;
             let content = $(this).parents('.page-header').find('.anwser-content').html().trim();
             let answerId = $(this).parents('.page-header').find('.anwser-content').attr('answer-id');
             let html = '<input answer-id="' + answerId + '"class="anwser-input" value="'
@@ -98,6 +100,8 @@
                 + '"></input >'
                 + '<button type="button" id="btnSubmitEditAnswer" class="btn btn-primary btnSubmitEdit">Submit</button>';
             $(this).parents('.page-header').first().find('.anwser-content').html(html);
+            e.preventDefault();
+            window.scrollTo(0, currentPosition);
         } else {
             //verify if already logged in
             CommonJS.showFailMsg('You must logged in first!');
@@ -137,10 +141,12 @@
     });
 
     //handle event click btn-delete-answer
-    $('.btn-delete-answer').on('click', function () {
+    $('.btn-delete-answer').on('click', function (e) {
         if (localStorage.getItem("token") !== "" && localStorage.getItem("token") !== null) {
             let idAnswer = $(this).parents('.page-header').find('.anwser-content').attr('answer-id');
+            e.preventDefault();
             $('#confirm-box').data('id', idAnswer).dialog('open');
+            e.preventDefault();
         } else {
             //verify if already logged in
             CommonJS.showFailMsg('You must logged in first!');
