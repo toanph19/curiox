@@ -82,7 +82,8 @@ namespace Curiox.Web.Controllers
                 return BadRequest();
             }
 
-            var answer = answerRepo.FirstOrDefault(a => a.Id == answerId && a.UserId == user.Id);
+            var answer = answerRepo.FirstOrDefault(a => a.Id == answerId);
+            //var answer = answerRepo.FirstOrDefault(a => a.Id == answerId && a.UserId == user.Id);
             if (answer == null)
             {
                 return BadRequest();

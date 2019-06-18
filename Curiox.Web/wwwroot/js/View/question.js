@@ -1,13 +1,16 @@
 ﻿$(document).ready(function () {
     // check author of question
     let listAnswers = $('.page-header');
+    listAnswers = listAnswers.slice(1);
     for (let item of listAnswers) {
         let author = $(item).find('.answer-author').html();
         // Toan's code: fix bug triming undefined
         if (author) {
             author = author.trim();
         }
-        
+
+
+
         let thisUser = JSON.parse(localStorage.getItem('user'));
         if (thisUser != author) {
             $(item).find('.btn-edit-answer').remove();
@@ -57,7 +60,7 @@
     //handle event click btn-upvote
     $('.btn-upvote').on('click', function () {
         if (localStorage.getItem("token") !== "" && localStorage.getItem("token") !== null) {
-            let answerId = $(this).parents('.page-header').find('.anwser-content').attr('answer-id');
+            let answerId = $(this).parents('.page-header').first().find('.anwser-content').attr('answer-id');
             var jsonObj = {
                 "token": localStorage.getItem('token'),
             };
@@ -93,20 +96,18 @@
         
     });
 
-    let currentPosition = null;
     //handle event click btn-edit-answer
     $('.btn-edit-answer').on('click', function (e) {
         if (localStorage.getItem("token") !== "" && localStorage.getItem("token") !== null) {
-            currentPosition = $(this).offset().top;
-            let content = $(this).parents('.page-header').find('.anwser-content').html().trim();
-            let answerId = $(this).parents('.page-header').find('.anwser-content').attr('answer-id');
-            let html = '<input answer-id="' + answerId + '"class="anwser-input" value="'
+            let content = $(this).parents('.page-header').first().find('.anwser-content').html().trim();
+            let answerId = $(this).parents('.page-header').first().find('.anwser-content').attr('answer-id');
+            let html = '<textarea rows=4 answer-id="' + answerId + '"class="anwser-input" value="'
                 + content
-                + '"></input >'
+                + '">' + content + '</textarea >'
                 + '<button type="button" id="btnSubmitEditAnswer" class="btn btn-primary btnSubmitEdit">Submit</button>';
+            e.preventDefault();
             $(this).parents('.page-header').first().find('.anwser-content').html(html);
             e.preventDefault();
-            window.scrollTo(0, currentPosition);
         } else {
             //verify if already logged in
             CommonJS.showFailMsg('You must logged in first!');
@@ -123,6 +124,7 @@
                 "token": localStorage.getItem('token'),
                 "content": content,
         };
+        debugger
             $.ajax({
                 method: "PUT",
                 url: Curiox.Config.loginUrl + "/Api/Answer?answerId=" + answerId,
@@ -151,7 +153,7 @@
             let idAnswer = $(this).parents('.page-header').find('.anwser-content').attr('answer-id');
             e.preventDefault();
             $('#confirm-box').data('id', idAnswer).dialog('open');
-            e.preventDefault();
+            //e.preventDefault();
         } else {
             //verify if already logged in
             CommonJS.showFailMsg('You must logged in first!');

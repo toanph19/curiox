@@ -24,7 +24,7 @@ $(document).ready(function () {
             success: function (data, txtStatus, xhr) {
                 if (txtStatus === "success") {
                     localStorage.setItem("user", JSON.stringify(data.username));
-                    debugger
+                    //debugger
                     localStorage.setItem("token", data.token);
                 }
                 CommonJS.showSuccessMsg("Login successfully!");
