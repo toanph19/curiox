@@ -16,7 +16,7 @@
                     +   '<li ><a id="btnLogout">Logout</a></li>'
                     +' </ul>'
                     +'</li >'
-                    + '<button id="btnAddQuestion" class="btn btn-danger navbar-btn">Add Question</button>'
+                    + '<button id="btnAddQuestion" class="btn btn-primary navbar-btn">Add Question</button>'
                     + '';
                 $('#user-box').html(html);
                 //$('#username').html(username);
