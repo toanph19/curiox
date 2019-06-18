@@ -2,7 +2,12 @@
     // check author of question
     let listAnswers = $('.page-header');
     for (let item of listAnswers) {
-        let author = $(item).find('.answer-author').html().trim();
+        let author = $(item).find('.answer-author').html();
+        // Toan's code: fix bug triming undefined
+        if (author) {
+            author = author.trim();
+        }
+        
         let thisUser = JSON.parse(localStorage.getItem('user'));
         if (thisUser != author) {
             $(item).find('.btn-edit-answer').remove();

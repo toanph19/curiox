@@ -66,7 +66,6 @@ namespace Curiox.Web.Controllers
                 QuestionId = answerDTO.QuestionId,
                 DateCreated = currentTime,
                 DateUpdated = currentTime
-
             };
             answerRepo.Add(answer);
 

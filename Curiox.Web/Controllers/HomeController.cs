@@ -26,10 +26,9 @@ namespace Curiox.Web.Controllers
         {
             var users = userRepo.GetAll().ToList();
             var categories = categoryRepo.GetAll().ToList();
-            var answers = answerRepo.GetAll().ToList();
-            var questionUpvotes = questionUpvoteRepo.GetAll();
-            
             var questions = questionRepo.GetAll().OrderByDescending(q => q.DateCreated).ToList();
+            var questionUpvotes = questionUpvoteRepo.GetAll();
+            //var answers = answerRepo.GetAll().ToList();
 
             var viewModel = new IndexViewModel();
 
@@ -42,7 +41,7 @@ namespace Curiox.Web.Controllers
             var qaViews = new List<IndexQuestionViewModel>();
             foreach (var qs in questions)
             {
-                var questionAnswers = answers.Where(a => a.QuestionId == qs.Id);
+                //var questionAnswers = answers.Where(a => a.QuestionId == qs.Id);
                 //var firstAnswer = questionAnswers.FirstOrDefault();
 
 
@@ -70,7 +69,7 @@ namespace Curiox.Web.Controllers
                     UserName = users.FirstOrDefault(user => user.Id == qs.UserId)?.Username,
                     Category = categories.FirstOrDefault(cat => cat.Id == qs.CategoryId)?.Name,
                     FirstAnswer = answerView,
-                    AnswerCounts = questionAnswers.Count(),
+                    //AnswerCounts = questionAnswers.Count(),
                     UpvoteCount = questionUpvotes.Count(u => u.QuestionId == qs.Id),
                     Liked = questionLiked
                 };
