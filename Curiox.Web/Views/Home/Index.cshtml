@@ -69,7 +69,7 @@
                                 <span class="ask-time">@questionView.DateCreated</span>
                                 @if (!string.IsNullOrWhiteSpace(@questionView.Category))
                                 {
-                                    <span class="question-category">#@questionView.Category</span>
+                                    <a class="question-category" asp-controller="Home" asp-action="Category" asp-route-category="@questionView.Category">#@questionView.Category</a>
                                 }
 
 

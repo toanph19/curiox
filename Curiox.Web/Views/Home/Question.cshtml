@@ -28,11 +28,16 @@
                     <div>
                         <div>
                             <h1 class="question-content-text" question-id="@Model.Id" question-liked="@Model.Liked">Question: @Model.Title </h1>
+                            <div>
+                                <p style="font-size:1.1em">
+                                    @Model.Content
+                                </p>
+                            </div>
                             <div class="question-info">
                                 <div class="poster">
                                     <small>by <strong>@Model.UserName</strong> on @Model.DateCreated</small>
                                 </div>
-
+                                <hr />
                                 <h3><strong>@Model.Answer.Count() answers</strong></h3>
                             </div>
                         </div>
@@ -43,7 +48,7 @@
                     <div class="page-header">
                         <h3>Answer by<strong class="answer-author">  @answer.UserName </strong></h3>
                         <div class="poster">
-                            <small>Answered on @answer.DateCreated</small> @if (answer.DateUpdated != null) { <small>  Last Updated on @answer.DateCreated</small>}
+                            <small>Answered on @answer.DateCreated</small> @if (answer.DateUpdated != null) { <small>  Last Updated on @answer.DateUpdated</small>}
                         </div>
                         <p class="anwser-content" answer-id="@answer.Id" answer-liked="@answer.Liked">
                             @answer.Content

@@ -23,14 +23,14 @@ namespace Curiox.Data.Repositories
             return Db.Set<T>().Find(id);
         }
 
-        public IEnumerable<T> GetAll()
+        public IQueryable<T> GetAll()
         {
-            return Db.Set<T>().AsEnumerable();
+            return Db.Set<T>();
         }
 
-        public IEnumerable<T> GetAll(Expression<Func<T, bool>> predicate)
+        public IQueryable<T> GetAll(Expression<Func<T, bool>> predicate)
         {
-            return Db.Set<T>().Where(predicate).AsEnumerable();
+            return Db.Set<T>().Where(predicate);
         }
 
         public void Add(T entity)

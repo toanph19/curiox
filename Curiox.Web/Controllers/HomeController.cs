@@ -83,6 +83,7 @@ namespace Curiox.Web.Controllers
             return View(viewModel);
         }
 
+        //[HttpGet("/Home/Category/{category}")]
         [HttpGet("/Category/{category}")]
         public IActionResult Category(string category)
         {
